@@ -1,0 +1,18 @@
+meta {
+  name: refresh
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{host}}/token/refresh/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "refresh": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMTAwMjAzOCwiaWF0IjoxNzMwOTE1NjM4LCJqdGkiOiI2Njk1MjJlNzA3NDU0YTQ3OWJjM2M2NmU5ZDFmMWNmYiIsInVzZXJfaWQiOjF9.XY5Ar-wI_ehGx1P9FsirdUEza4ygnR2Jt0WWi7tqmWLBsh9OYwEOqc7YLc1gdxBiL0p66-OHqAbmkz4EIzPVKMJMoNtla0uwJ9cRNBfZlpwxtV1hqsbagO2WlclAdTqbs9Hnw840x_FYC4dtoEBbDbSxJSWHqCTHyJ0VujnYmU8Pt5jdE-VzNugal4tkJHRLywH2Anx_-7w4lsRQM6LriNtsxjEgtiWhZ5FjLB3V5jGg28IoN4lC5tiTaTA81w2Mlet0DmcrqwLRf7noW7lYqC-OXVFdiQSzlEUerdbZGn5hdYSQVmhP6MmBxjJDdrugtjG7I5gihpft4M6smNVJJg"
+  }
+  
+}

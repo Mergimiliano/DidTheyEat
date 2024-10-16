@@ -1,0 +1,21 @@
+meta {
+  name: logout
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{host}}/logout/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "refresh": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMDg5MjQ5MywiaWF0IjoxNzMwODA2MDkzLCJqdGkiOiJhODM2NGQwMzFmMTQ0NTczODg0NzBlYTRjNjkzZjU0OCIsInVzZXJfaWQiOjJ9.JzMQC60jAqhTzeNmH3WTUtzlas2JWdwIc0k-UbNNRhCRRe_l9uthRYCpGQ6kA2OqiZqQvL9_NWTnLhHrENElh_TSAyZI_VzBwcxqCQCoi5D_CuOmULh6EbVCeVC7P8Eid5uodKfje3Igx7qLUmXK566-jgeMjuLuSzLmdRt9Dzfpt2nDSkEnnbBCdHBRoAolnVGOWqip8_LpSzNmmRoqwS7uB-R0GlfkyI71aAfjLXhCR1tzwghmgQVQp6S3R2ccgJsW3mnR5mO3iB7KxSczNvlym2_b-UIckA324vPOpMBX-NVT5fWeIoRmjiry7_92W1aCT_l2CBf2kZ0-iU-PfQ"
+  }
+}
