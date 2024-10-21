@@ -11,3 +11,5 @@ DidTheyEat is a web application designed to help pet owners track and manage the
     (https://medium.com/@karimdhrif4444/mastering-user-management-comprehensive-guide-to-extending-djangos-user-model-51c2ccd793d4)
 
 2- "Billboard" mode
+
+3- "fed_at" field to Pet to show the last time the pet has been fed for future tracking time
