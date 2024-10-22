@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
 class PetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pet
-        fields = ['id', 'name', 'type', 'fed', 'community', 'created_by', 'created_at']
+        fields = ['id', 'name', 'type', 'fed', 'fed_at', 'community', 'created_by', 'created_at']
         read_only_fields = ['created_at']
 
 

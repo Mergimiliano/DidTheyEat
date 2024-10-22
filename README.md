@@ -3,7 +3,7 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 
 # TO-DO:
-1- expand user model
+1- expand user model and add a soft delete for recovering accounts
 
     - add google login
 
@@ -12,4 +12,5 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 2- "Billboard" mode
 
-3- "fed_at" field to Pet to show the last time the pet has been fed for future tracking time
+# NOTES
+Mind that if a JSON {"fed": "true"} the fed_at time will update
