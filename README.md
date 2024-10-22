@@ -12,5 +12,7 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 2- "Billboard" mode
 
+3- add tests and use Bruno for testing (adding the file in the git repo)
+
 # NOTES
 Mind that if a JSON {"fed": "true"} the fed_at time will update
