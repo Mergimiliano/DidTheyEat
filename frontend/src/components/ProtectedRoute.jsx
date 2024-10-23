@@ -4,37 +4,49 @@ import api from "../api";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useState, useEffect } from "react";
 
-
 function ProtectedRoute({ children }) {
     const [isAuthorized, setIsAuthorized] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        auth().catch(() => setIsAuthorized(false))
-    }, [])
+        const checkAuth = async () => {
+            try {
+                await auth();
+            } catch (err) {
+                setError(err);
+                setIsAuthorized(false);
+            }
+        };
+
+        checkAuth();
+    }, []);
 
     const refreshToken = async () => {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+        if (!refreshToken) {
+            throw new Error("No refresh token found");
+        }
         try {
             const res = await api.post("/api/token/refresh/", {
                 refresh: refreshToken,
             });
             if (res.status === 200) {
-                localStorage.setItem(ACCESS_TOKEN, res.data.access)
-                setIsAuthorized(true)
+                localStorage.setItem(ACCESS_TOKEN, res.data.access);
+                setIsAuthorized(true);
             } else {
-                setIsAuthorized(false)
+                throw new Error("Failed to refresh token");
             }
         } catch (error) {
-            console.log(error);
+            console.error("Error refreshing token:", error);
             setIsAuthorized(false);
+            throw error;
         }
     };
 
     const auth = async () => {
         const token = localStorage.getItem(ACCESS_TOKEN);
         if (!token) {
-            setIsAuthorized(false);
-            return;
+            throw new Error("No access token found");
         }
         const decoded = jwtDecode(token);
         const tokenExpiration = decoded.exp;
@@ -49,6 +61,15 @@ function ProtectedRoute({ children }) {
 
     if (isAuthorized === null) {
         return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return (
+            <div>
+                <p>Error: {error.message}</p>
+                <Navigate to="/login" />
+            </div>
+        );
     }
 
     return isAuthorized ? children : <Navigate to="/login" />;

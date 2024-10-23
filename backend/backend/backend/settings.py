@@ -17,21 +17,26 @@ import os
 
 load_dotenv()
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+PRIVATE_KEY_PATH = os.getenv('PRIVATE_KEY_PATH')
+PUBLIC_KEY_PATH = os.getenv('PUBLIC_KEY_PATH')
+
+with open(BASE_DIR / PRIVATE_KEY_PATH.lstrip('./'), 'r') as private_key_file:
+    PRIVATE_KEY = private_key_file.read()
+
+with open(BASE_DIR / PUBLIC_KEY_PATH.lstrip('./'), 'r') as public_key_file:
+    PUBLIC_KEY = public_key_file.read()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x*8o55$yio&ep8cn#6&6)+#kssx7m#^wr%_tm&qkvwnus2y*=v'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -45,6 +50,10 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ALGORITHM": "RS256",
+    "SIGNING_KEY": PRIVATE_KEY,
+    "VERIFYING_KEY": PUBLIC_KEY,
+    "BLACKLIST_AFTER_ROTATION": True,
 }
 
 # Application definition
@@ -58,7 +67,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework_simplejwt.token_blacklist'
 ]
 
 MIDDLEWARE = [

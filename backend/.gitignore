@@ -5,3 +5,6 @@ __pycache__/
 *.pyd
 *.db
 .DS_Store
+.env
+private.key
+public.key
