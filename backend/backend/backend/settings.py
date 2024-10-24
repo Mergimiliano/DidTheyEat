@@ -48,12 +48,15 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "ALGORITHM": "RS256",
-    "SIGNING_KEY": PRIVATE_KEY,
-    "VERIFYING_KEY": PUBLIC_KEY,
-    "BLACKLIST_AFTER_ROTATION": True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ALGORITHM': 'RS256',
+    'SIGNING_KEY': PRIVATE_KEY,
+    'VERIFYING_KEY': PUBLIC_KEY,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_BLACKLIST_ENABLED': True,
+    'ROTATE_BEARER_TOKENS': True,
 }
 
 # Application definition
