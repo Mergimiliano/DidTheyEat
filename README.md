@@ -14,7 +14,11 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 3- add tests and use Bruno for testing (adding the file in the git repo)
 
-5- [CRYPTO] https://django-rest-framework-simplejwt.readthedocs.io/en/stable/getting_started.html and check if the token is signed
+4- JWT is currently not verifying, change to verify the signature. Also ProtectedRoute should be moved do context and beeing hooked. context is just a name we use a provider
+
+5- Check create pet for when creating a pet inside a community
+
+6- router in urls.py?
 
 # NOTES
 Mind that if a JSON {"fed": "true"} the fed_at time will update

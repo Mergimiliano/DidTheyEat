@@ -3,7 +3,7 @@ from .models import Pet, Community
 from rest_framework import generics
 from .serializers import UserSerializer, PetSerializer, CommunitySerializer
 from rest_framework.permissions import AllowAny
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, MethodNotAllowed
 from django.utils import timezone
 
 class CreateUserView(generics.CreateAPIView):
@@ -70,5 +70,5 @@ class CommunityDetail(CommunityRetrievalMixin, generics.RetrieveUpdateDestroyAPI
     def get_object(self):
         community = self.get_community()
         if self.request.user not in community.users.all():
-            raise NotFound({"detail": "You do not have access to this community."})
+            raise MethodNotAllowed({"detail": "You do not have access to this community."})
         return community

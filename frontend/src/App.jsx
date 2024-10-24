@@ -1,44 +1,40 @@
-import './App.css';
-import { useState } from 'react';
+import react from "react"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import Home from "./pages/Home"
+import NotFound from "./pages/NotFound"
+import ProtectedRoute from "./components/ProtectedRoute"
 
-function App() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await fetch('http://localhost:8000/api/token/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ username, password }),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Access Token:', data.access);
-    } else {
-      console.error('Login failed:', response.statusText);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        Username: <input type='text' name='username' value={username} onChange={(e) => setUsername(e.target.value)} />
-      </div>
-
-      <div>
-        Password: <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-      </div>
-
-      <div>
-        <input type='submit' value='Login' />
-      </div>
-    </form>
-  );
+function Logout() {
+  localStorage.clear()
+  return <Navigate to="/login" />
 }
 
-export default App;
+function RegisterAndLogout() {
+  localStorage.clear()
+  return <Register />
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/register" element={<RegisterAndLogout />} />
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+export default App
