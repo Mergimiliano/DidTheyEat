@@ -1,0 +1,21 @@
+meta {
+  name: user-delete
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{host}}/user/delete/
+  body: json
+  auth: none
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+body:json {
+  {
+    
+  }
+}

@@ -39,6 +39,10 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
     
+    @property
+    def is_active(self):
+        return self.deleted_at is None
+    
     def delete(self, using=None, keep_parents=False):
         self.deleted_at = timezone.now()
         self.save()

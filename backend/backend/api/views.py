@@ -24,7 +24,7 @@ class CreateUser(generics.CreateAPIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     def post(self, request, *args, **kwargs):
         user = User.objects.filter(email=request.data.get('email')).first()
-        if user and (user.is_active and user.deleted_at is None):
+        if user and (user.deleted_at is None):
             return super().post(request, *args, **kwargs)
         else:
             raise AuthenticationFailed("This account is inactive or deleted.")
@@ -35,17 +35,20 @@ class CustomTokenRefreshView(TokenRefreshView):
             return Response({"detail": "Refresh token is missing."}, status=400)
 
         refresh_token = request.data['refresh']
+        try:
+            token = RefreshToken(refresh_token)
+        except InvalidToken:
+            return Response({"detail": "Invalid or expired token."}, status=401)
+        
         serializer = TokenRefreshSerializer(data=request.data)
         try:
             serializer.is_valid(raise_exception=True)
         except InvalidToken:
             return Response({"detail": "Invalid or expired token."}, status=401)
-
-        token = RefreshToken(refresh_token)
+        
         user_id = token['user_id']
         try:
             user = get_user_model().objects.get(id=user_id)
-            print(user)
             if user.deleted_at is not None:
                 return Response({"detail": "User account is deleted."}, status=401)
         except get_user_model().DoesNotExist:
@@ -72,6 +75,18 @@ class Logout(APIView):
         except Exception:
             return Response({"detail": "An error occurred."}, status=status.HTTP_400_BAD_REQUEST)
 
+class SoftDeleteProfileView(APIView):
+    def delete(self, request, *args, **kwargs):
+        user = request.user
+
+        ''' 
+        if user != request.user:
+        return Response({"detail": "You can only delete your own account."}, status=status.HTTP_400_BAD_REQUEST)
+        '''
+        user.deleted_at = timezone.now()
+        user.save()
+
+        return Response({"detail": "Account successfully deleted."}, status=status.HTTP_200_OK)
 
 class CreatePet(generics.ListCreateAPIView):
     serializer_class = PetSerializer
@@ -125,7 +140,11 @@ class CreateCommunity(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         user = self.request.user
         created_by_name = f"{user.first_name} {user.last_name}"
-        serializer.save(created_by=created_by_name)
+
+        community = serializer.save(
+            created_by=created_by_name,
+            users=[user]
+        )
 
 class CommunityDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CommunitySerializer

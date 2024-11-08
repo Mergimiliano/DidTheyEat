@@ -1,0 +1,22 @@
+meta {
+  name: community-create
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{host}}/communities/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Test community"
+  }
+  
+}

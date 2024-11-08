@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from api.views import CreateUser, CreateCommunity, CreatePet, CommunityDetail, Logout, PetDetail, FeedPet, CustomTokenObtainPairView, CustomTokenRefreshView
+from api.views import CreateUser, CreateCommunity, CreatePet, CommunityDetail, Logout, PetDetail, FeedPet, CustomTokenObtainPairView, CustomTokenRefreshView, SoftDeleteProfileView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -8,6 +8,7 @@ urlpatterns = [
     path("token/", CustomTokenObtainPairView.as_view(), name="get_token"),
     path("token/refresh/", CustomTokenRefreshView.as_view(), name="token_refresh"),
     path("logout/", Logout.as_view(), name="logout"),
+    path('user/delete/', SoftDeleteProfileView.as_view(), name='user_delete'),
     path('communities/', CreateCommunity.as_view(), name='create_community'),
     path('communities/<int:pk>/', CommunityDetail.as_view(), name='community_detail'),
     path('communities/<int:community_id>/pets/', CreatePet.as_view(), name='create_pet'),
