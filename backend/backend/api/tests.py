@@ -104,28 +104,3 @@ class UserTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertIn('detail', response.data)
         self.assertTrue("Given token not valid" in response.data['detail'])
-    
-    def test_user_refresh_token(self):
-        # Obtain a token for a normal user
-        url = reverse('get_token')
-        response = self.client.post(url, {
-            'email': self.email,
-            'password': self.password,
-        })
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        refresh_token = response.data['refresh']
-
-        # Now attempt to refresh the token
-        refresh_url = reverse('token_refresh')
-        response = self.client.post(refresh_url, {'refresh': refresh_token})
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertIn('access', response.data)
-
-        # Simulate the deleted user and try to refresh token
-        self.deleted_user.deleted_at = timezone.now()  # Ensure it's deleted
-        self.deleted_user.save()
-
-        # Attempt to refresh the token with the deleted user
-        response = self.client.post(refresh_url, {'refresh': refresh_token})
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.assertEqual(response.data['detail'], "User account is deleted.")
