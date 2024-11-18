@@ -18,6 +18,10 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 - camera for taking pictures of the pets
 
+- stack navigation of login and register going infite if clicking on link ("Dont have an account etc.")
+
+- if logout succesfull check if no tokens, if not tokens go to getStarted
+
 - "Billboard" mode
 
 - router in urls.py?

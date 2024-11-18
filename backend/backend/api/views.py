@@ -22,6 +22,8 @@ class CreateUser(generics.CreateAPIView):
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
+    permission_classes = [AllowAny]
+    
     def post(self, request, *args, **kwargs):
         user = User.objects.filter(email=request.data.get('email')).first()
         if user and (user.deleted_at is None):
