@@ -13,7 +13,7 @@ class CommunityAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
     def display_users(self, obj):
-        return ", ".join([user.username for user in obj.users.all()])
+        return ", ".join([user.email for user in obj.users.all()])
     
     display_users.short_description = 'Users'
 

@@ -15,12 +15,13 @@ const Tab = createBottomTabNavigator();
 const AppTabs = () => (
   <Tab.Navigator>
     <Tab.Screen name="Communities" component={Communities} />
-    <Tab.Screen name="Profiles" component={Profile} />
+    <Tab.Screen name="Profile" component={Profile} />
   </Tab.Navigator>
 );
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -44,9 +45,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="GetStarted" component={GetStarted} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="AppTabs" component={AppTabs} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
+      <Stack.Screen name="AppTabs" component={AppTabs} />
       </Stack.Navigator>
     </NavigationContainer>
   );
