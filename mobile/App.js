@@ -8,6 +8,8 @@ import GetStarted from './src/screens/GetStarted';
 import Register from './src/screens/Register';
 import Login from './src/screens/Login';
 import Profile from './src/screens/Profile';
+import { useNavigation } from '@react-navigation/native';
+import { refreshToken } from './src/services/tokenService';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,26 +22,32 @@ const AppTabs = () => (
 );
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const navigation = useNavigation();
 
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
         const tokens = await Keychain.getGenericPassword();
-        setIsAuthenticated(!!tokens);
+        if (tokens) {
+          const refreshSuccess = await refreshToken(tokens.username);
+          if (refreshSuccess) {
+            navigation.replace('AppTabs'); 
+          } else {
+            navigation.replace('Login');
+          }
+        } else {
+          navigation.replace('GetStarted')
+        }
       } catch (error) {
         console.error('Error checking auth status:', error);
-        setIsAuthenticated(false);
+        navigation.replace('Login');
       }
     };
 
     checkAuthStatus();
-  }, []);
+  }, [navigation]);
 
-  if (isAuthenticated === null) {
-    return null; // TO DO LOADING
-  }
+  // TO DO LOADING
 
   return (
     <NavigationContainer>
