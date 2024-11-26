@@ -22,6 +22,7 @@ const AppTabs = () => (
 );
 
 export default function App() {
+
   const [initialRoute, setInitialRoute] = useState(null);
 
   useEffect(() => {
@@ -57,7 +58,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialRoute}>
+      <Stack.Navigator initialRouteName={initialRoute} screenOptions={{
+          headerShown: false,
+        }}>
         <Stack.Screen name="GetStarted" component={GetStarted} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
