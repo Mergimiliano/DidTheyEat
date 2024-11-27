@@ -24,7 +24,18 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     padding: responsiveFontSize(16),
-    backgroundColor: colors.offWhite,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  background: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  welcomeImage: {
+    width: width,
+    height: 400,
+    resizeMode: 'contain',
+    marginBottom: 10,
   },
   card: {
     width: '80%',
@@ -39,27 +50,29 @@ const style = StyleSheet.create({
     elevation: 3,
     backgroundColor: colors.yellow,
   },
-
-  textHeading: {
+  textTitle: {
     fontFamily: 'Satoshi, sans-serif',
-    fontSize: responsiveFontSize(24),
-    lineHeight: responsiveFontSize(24) * 1.3,
+    fontWeight: 'bold',
+    fontSize: responsiveFontSize(36),
+    lineHeight: responsiveFontSize(36) * 1.3,
     letterSpacing: -0.005 * responsiveFontSize(24),
+    textAlign: 'center',
+    marginBottom: 10,
+    color: colors.navy,
+  },
+  textSubtitle: {
+    fontFamily: 'Satoshi, sans-serif',
+    fontSize: responsiveFontSize(20),
+    lineHeight: responsiveFontSize(18) * 1.5,
+    letterSpacing: -0.01 * responsiveFontSize(18),
     color: colors.navy,
   },
   textBody: {
     fontFamily: 'Satoshi, sans-serif',
     fontSize: responsiveFontSize(16),
     lineHeight: responsiveFontSize(16) * 1.5,
-    letterSpacing: -0.01 * responsiveFontSize(16),
+    letterSpacing: -0.02 * responsiveFontSize(16),
     color: colors.navy,
-  },
-  textAccent: {
-    fontFamily: 'Satoshi, sans-serif',
-    fontSize: responsiveFontSize(18),
-    lineHeight: responsiveFontSize(18) * 1.5,
-    letterSpacing: -0.02 * responsiveFontSize(18),
-    color: colors.pink,
   },
   button: {
     display: 'inline-block',

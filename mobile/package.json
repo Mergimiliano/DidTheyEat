@@ -10,6 +10,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.1",
+    "@fortawesome/free-solid-svg-icons": "^6.7.1",
+    "@fortawesome/react-native-fontawesome": "^0.3.2",
     "@react-native/metro-config": "^0.76.1",
     "@react-navigation/bottom-tabs": "^7.0.4",
     "@react-navigation/native": "^7.0.2",
