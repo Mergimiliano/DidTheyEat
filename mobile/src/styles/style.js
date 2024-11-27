@@ -30,12 +30,36 @@ const style = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center'
   },
   welcomeImage: {
     width: width,
     height: 400,
     resizeMode: 'contain',
     marginBottom: 10,
+  },
+  carouselItem: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  pagination: {
+    flexDirection: 'row',
+    marginVertical: 20,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  activeDot: {
+    backgroundColor: '#000',
+  },
+  inactiveDot: {
+    backgroundColor: '#ddd',
   },
   card: {
     width: '80%',
