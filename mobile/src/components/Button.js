@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, StyleSheet} from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import { colors } from '../styles/style';
 
 export default function Button({ onPress, title }) {
   const [pressed, setPressed] = useState(false);
@@ -13,6 +18,7 @@ export default function Button({ onPress, title }) {
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       onPress={onPress}
+      activeOpacity={0.8}
     >
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
@@ -21,31 +27,29 @@ export default function Button({ onPress, title }) {
 
 const styles = StyleSheet.create({
   button: {
-    display: 'inline-block',
-    position: 'relative',
-    marginBottom: 14,
+    width: wp('60%'), // 60% of the screen width
+    height: hp('6%'), // 7% of the screen height
+    marginBottom: hp('2%'), // 2% of the screen height
     borderWidth: 2,
-    borderColor: 'currentColor',
-    borderRadius: 16,
-    boxShadow: '0 6px 0 rgba(0, 0, 0, 0.1)',
-    backgroundColor: '#fff',
-    paddingVertical: 14,
-    paddingHorizontal: 30,
-    textAlign: 'center',
-    color: '#183153',
-    fontWeight: '600',
-    cursor: 'pointer',
-    userSelect: 'none',
+    borderColor: colors.yellow,
+    borderRadius: wp('4%'), // 4% of the screen width
+    backgroundColor: colors.yellow,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  buttonText: {
-    fontFamily: 'Satoshi-Medium, sans-serif',
-    fontSize: 16,
-    color: '#183153',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: hp('1%') }, // Dynamic shadow height
+    shadowOpacity: 0.1,
+    shadowRadius: wp('2%'), // Dynamic shadow radius
+    elevation: 4, // Android shadow
   },
   buttonActive: {
-    backgroundColor: '#e2ae86',
-    borderColor: '#ffb71a',
+    backgroundColor: colors.lightYellow,
+    shadowOffset: { width: 0, height: hp('0.5%') },
+    elevation: 2,
+  },
+  buttonText: {
+    fontSize: wp('4%'), // 4% of the screen width
+    fontWeight: 'bold',
+    color: colors.navy,
   },
 });

@@ -32,6 +32,8 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 - fix tests
 
+- handle rotation
+
 # NOTES
 Mind that if a JSON {"fed": "true"} the fed_at time will update
 
