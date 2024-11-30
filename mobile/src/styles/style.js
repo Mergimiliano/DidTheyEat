@@ -22,13 +22,15 @@ const style = StyleSheet.create({
   },
   textTitle: {
     fontWeight: 'bold',
-    fontSize: wp('6%'),
+    fontSize: wp('8%'),
     textAlign: 'center',
+    marginBottom: hp('1%'),
     color: colors.navy,
   },
   textSubtitle: {
     fontSize: wp('4%'),
     textAlign: 'center',
+    marginBottom: hp('1%'),
     color: colors.navy,
   },
   getStartedTop: {
@@ -43,13 +45,32 @@ const style = StyleSheet.create({
     width: wp('100%'),
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: hp('5%')
+    marginBottom: hp('6%')
   },
   welcomeImage: {
     width: wp('80%'),
     height: hp('30%'),
     resizeMode: 'contain',
     marginTop: hp('3%'),
+  },
+  slider: {
+    width: wp('100%'),
+    marginTop: hp('3%'),
+    alignItems: 'center'
+  },
+  sliderWidth: wp('100%'),
+  dotContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: colors.yellow,
+    marginHorizontal: 5,
   },
 });
 

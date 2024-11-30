@@ -1,4 +1,5 @@
 import * as Keychain from 'react-native-keychain';
+import axiosInstance from '../utils/axiosInstance';
 
 // Store refresh token as username and access token as password
 
@@ -31,13 +32,18 @@ export const clearTokens = async () => {
   }
 };
 
-export const refreshToken = async (refreshToken) => {
+export const refreshTokens = async (refreshToken) => {
   try {
+
     const response = await axiosInstance.post('/token/refresh/', { refresh: refreshToken });
+
     const newAccessToken = response.data.access;
-    await Keychain.setGenericPassword('accessToken', newAccessToken);
+    const newRefreshToken = response.data.refresh;
+
+    await Keychain.setGenericPassword('auth', JSON.stringify({ accessToken: newAccessToken, refreshToken: newRefreshToken }));
     return true;
   } catch (error) {
+    console.log('Error refreshing token:', error);
     return false;
   }
 };

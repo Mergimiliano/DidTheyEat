@@ -12,8 +12,12 @@ from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework.views import APIView
 from .models import Pet, Community, UserProfile
 from .serializers import UserProfileSerializer, PetSerializer, CommunitySerializer
+import logging
 
 User = get_user_model()
+
+logger = logging.getLogger(__name__)
+
 
 class CreateUser(generics.CreateAPIView):
     queryset = UserProfile.objects.all()
@@ -32,19 +36,15 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             raise AuthenticationFailed("This account is inactive or deleted.")
         
 class CustomTokenRefreshView(TokenRefreshView):
+    permission_classes = [AllowAny]
+    
     def post(self, request, *args, **kwargs):
-        if 'refresh' not in request.data:
+        refresh_token = request.data.get('refresh')
+        if not refresh_token:
             return Response({"detail": "Refresh token is missing."}, status=400)
-
-        refresh_token = request.data['refresh']
+        
         try:
             token = RefreshToken(refresh_token)
-        except InvalidToken:
-            return Response({"detail": "Invalid or expired token."}, status=401)
-        
-        serializer = TokenRefreshSerializer(data=request.data)
-        try:
-            serializer.is_valid(raise_exception=True)
         except InvalidToken:
             return Response({"detail": "Invalid or expired token."}, status=401)
         
@@ -56,7 +56,13 @@ class CustomTokenRefreshView(TokenRefreshView):
         except get_user_model().DoesNotExist:
             return Response({"detail": "User not found."}, status=404)
 
-        return Response(serializer.validated_data, status=200)
+        new_refresh_token = RefreshToken.for_user(user)
+        new_access_token = new_refresh_token.access_token
+
+        return Response({
+            "access": str(new_access_token),
+            "refresh": str(new_refresh_token)
+        }, status=200)
 
 
 class Logout(APIView):

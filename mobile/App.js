@@ -8,7 +8,7 @@ import GetStarted from './src/screens/GetStarted';
 import Register from './src/screens/Register';
 import Login from './src/screens/Login';
 import Profile from './src/screens/Profile';
-import { refreshToken } from './src/services/tokenService';
+import { refreshTokens } from './src/services/tokenService';
 import { ActivityIndicator, View } from 'react-native';
 
 const Stack = createStackNavigator();
@@ -30,7 +30,8 @@ export default function App() {
       try {
         const tokens = await Keychain.getGenericPassword();
         if (tokens) {
-          const refreshSuccess = await refreshToken(tokens.username);
+          const refreshToken = tokens.password;
+          const refreshSuccess = await refreshTokens(refreshToken);
           if (refreshSuccess) {
             setInitialRoute('AppTabs');
           } else {
