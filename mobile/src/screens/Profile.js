@@ -7,22 +7,22 @@ export default function Profile({ navigation }) {
 
   const handleLogout = async () => {
     try {
-      const tokens = await Keychain.getGenericPassword();
+      const credentials = await Keychain.getInternetCredentials('refresh_token');
       
-      if (!tokens) {
+      if (!credentials) {
         alert('No tokens found');
         return;
       }
 
-      const refreshToken = tokens.username;
+      const refreshToken = credentials.password;
 
-      const response = await axiosInstance.post('http://10.0.2.2:8000/logout/', {
+      const response = await axiosInstance.post('/logout/', {
         refresh: refreshToken,
       });
 
       if (response.status === 200) {
-        await Keychain.resetGenericPassword();
-
+        await Keychain.resetInternetCredentials('access_token');
+        await Keychain.resetInternetCredentials('refresh_token');
         alert('Logout successful!');
         navigation.reset({
           index: 0,

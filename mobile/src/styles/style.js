@@ -33,6 +33,9 @@ const style = StyleSheet.create({
     marginBottom: hp('1%'),
     color: colors.navy,
   },
+  link:{
+    color: colors.peach,
+  },
   getStartedTop: {
     width: wp('100%'),
     height: hp('70%'),

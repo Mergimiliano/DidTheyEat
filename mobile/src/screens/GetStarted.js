@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { View, ImageBackground, Image, SafeAreaView, FlatList, Animated } from 'react-native';
 import { style } from '../styles/style';
 import Button from '../components/Button';
@@ -29,7 +29,7 @@ export default function GetStarted({ navigation }) {
   return (
     <SafeAreaView>
       <ImageBackground
-        source={require('../assets/background.png')}
+        source={require('../assets/background-landing.png')}
         resizeMode="cover"
         style={style.background}>
 

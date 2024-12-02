@@ -26,9 +26,9 @@ export default function App() {
   const [initialRoute, setInitialRoute] = useState(null);
 
   useEffect(() => {
-    const checkAuthStatus = async () => {
+    const checkAuth = async () => {
       try {
-        const tokens = await Keychain.getGenericPassword();
+        const tokens = await Keychain.getInternetCredentials('refresh_token');
         if (tokens) {
           const refreshToken = tokens.password;
           const refreshSuccess = await refreshTokens(refreshToken);
@@ -46,7 +46,7 @@ export default function App() {
       }
     };
 
-    checkAuthStatus();
+    checkAuth();
   }, []);
 
   if (!initialRoute) {

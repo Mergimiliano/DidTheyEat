@@ -38,3 +38,6 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 Mind that if a JSON {"fed": "true"} the fed_at time will update
 
 reanimated works only on android right now, eact-native-reanimated—require configuration in the native Android and iOS environments to fully integrate.
+
+# INSTRUCTIONS
+Change baseUrl in axiosInstance, will change it later

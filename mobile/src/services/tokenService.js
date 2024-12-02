@@ -1,7 +1,7 @@
 import * as Keychain from 'react-native-keychain';
 import axiosInstance from '../utils/axiosInstance';
 
-// Store refresh token as username and access token as password
+// Store refresh as password, access as username
 
 export const storeTokens = async (accessToken, refreshToken) => {
   try {

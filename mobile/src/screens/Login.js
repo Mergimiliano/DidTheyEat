@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { Text, TextInput, Button, TouchableOpacity, ImageBackground, SafeAreaView } from 'react-native';
+import { style } from '../styles/style';
 import * as Keychain from 'react-native-keychain';
 import axios from 'axios';
 
@@ -9,14 +10,17 @@ export default function Login({ navigation }) {
 
   const saveTokens = async (accessToken, refreshToken) => {
     try {
-      // Store refresh token as username and access token as password
-      await Keychain.setGenericPassword(refreshToken, accessToken);
-      console.log('Tokens saved successfully.');
+      await Keychain.setInternetCredentials('access_token', 'access', accessToken);
+      console.log('Access token saved successfully.');
+
+      await Keychain.setInternetCredentials('refresh_token', 'refresh', refreshToken);
+      console.log('Refresh token saved successfully.');
     } catch (error) {
       console.error('Error saving tokens:', error);
       Alert.alert('Error', 'Could not save tokens');
     }
   };
+  
 
   const handleLogin = async () => {
     try {
@@ -46,23 +50,28 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <View>
-      <Text>Login</Text>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <Button title="Login" onPress={handleLogin} />
-      <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-        <Text style={{ color: 'blue', marginTop: 10 }}>Don't have an account? Register</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView>
+      <ImageBackground
+        source={require('../assets/background-form.png')}
+        resizeMode="cover"
+        style={style.background}>
+
+        <TextInput
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <TextInput
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        <Button title="Login" onPress={handleLogin} />
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={style.link}>Don't have an account? Register</Text>
+        </TouchableOpacity>
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
