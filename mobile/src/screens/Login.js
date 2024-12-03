@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text, TextInput, Button, TouchableOpacity, ImageBackground, SafeAreaView } from 'react-native';
+import { Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView } from 'react-native';
 import { style } from '../styles/style';
 import * as Keychain from 'react-native-keychain';
 import axios from 'axios';
+import Button from '../components/Button';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -50,28 +51,29 @@ export default function Login({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
-      <ImageBackground
-        source={require('../assets/background-form.png')}
-        resizeMode="cover"
-        style={style.background}>
-
-        <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <TextInput
-          placeholder="Password"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-        <Button title="Login" onPress={handleLogin} />
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={style.link}>Don't have an account? Register</Text>
-        </TouchableOpacity>
-      </ImageBackground>
-    </SafeAreaView>
+    <ImageBackground
+  source={require('../assets/background-form.png')}
+  resizeMode="cover"
+  style={[style.background, { flex: 1 }]}>
+  <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <TextInput
+      placeholder="Email"
+      value={email}
+      onChangeText={setEmail}
+      style={style.input}
+    />
+    <TextInput
+      placeholder="Password"
+      secureTextEntry
+      value={password}
+      onChangeText={setPassword}
+      style={style.input}
+    />
+    <Button title="Login" onPress={handleLogin} />
+    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+      <Text style={style.link}>Don't have an account? Register</Text>
+    </TouchableOpacity>
+  </SafeAreaView>
+</ImageBackground>
   );
 }

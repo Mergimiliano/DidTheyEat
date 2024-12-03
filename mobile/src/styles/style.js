@@ -4,7 +4,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const colors = {
+export const colors = {
   yellow: '#ffb71a',
   lightYellow: '#ffd571',
   peach: '#e2ae86',

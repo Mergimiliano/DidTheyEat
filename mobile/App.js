@@ -10,6 +10,7 @@ import Login from './src/screens/Login';
 import Profile from './src/screens/Profile';
 import { refreshTokens } from './src/services/tokenService';
 import { ActivityIndicator, View } from 'react-native';
+import { colors } from './src/styles/style';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -52,7 +53,7 @@ export default function App() {
   if (!initialRoute) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color={colors.yellow} />
       </View>
     );
   }

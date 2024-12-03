@@ -14,13 +14,15 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 - Set a timer logic (with selectable time) that resets the "fed" field when loading the community pets
 
-- notifications
-
 - camera for taking pictures of the pets
 
-- stack navigation of login and register going infite if clicking on link ("Dont have an account etc.")
+- loading background and image
 
-- if logout succesfull check if no tokens, if not tokens go to getStarted
+- remove alerts
+
+- dependencies that are not getting used currently
+
+- notifications
 
 - "Billboard" mode
 
