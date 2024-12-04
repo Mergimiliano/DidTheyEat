@@ -62,6 +62,34 @@ const style = StyleSheet.create({
     alignItems: 'center'
   },
   sliderWidth: wp('100%'),
+  textContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: wp('80%'),
+    height: hp('6%'),
+    marginBottom: hp('2%'),
+    borderWidth: 1,
+    borderColor: colors.navy,
+    borderRadius: wp('4%'),
+    backgroundColor: colors.offWhite,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  textForm: {
+    fontSize: wp('4%'),
+    fontWeight: 'bold',
+    color: colors.navy,
+  },
+  icon: {
+    color:colors.navy,
+    marginRight: wp('3%')
+
+  },
   dotContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -75,6 +103,18 @@ const style = StyleSheet.create({
     backgroundColor: colors.yellow,
     marginHorizontal: 5,
   },
+  tab: {
+    backgroundColor: colors.yellow,
+    height: hp('10%')
+  },
+  tabLabel: {
+    fontSize: wp('4%'),
+    fontWeight: 'bold',
+    marginTop: hp('0.5%')
+  },
+  tabIcons:{
+    marginTop: hp('0.5%')
+  }
 });
 
 export { style, colors };

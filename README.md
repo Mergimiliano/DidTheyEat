@@ -4,6 +4,8 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 # TO-DO:
 
+- 401 when a user that doesnt exist tries to login
+
 - Pet and Community limit (when reaching a high level of pets suggest to group them)
 
 - add google login
@@ -21,6 +23,8 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 - remove alerts
 
 - dependencies that are not getting used currently
+
+- hide/dont hide password, password and email confermation amd recover mail or password
 
 - notifications
 

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView } from 'react-native';
+import Button from '../components/Button';
+import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { style } from '../styles/style';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
@@ -29,33 +33,58 @@ export default function Register({ navigation }) {
   };
 
   return (
-    <View>
-      <Text>Register</Text>
-      <TextInput
-        placeholder="First Name"
-        value={firstName}
-        onChangeText={setFirstName}
-      />
-      <TextInput
-        placeholder="Last Name"
-        value={lastName}
-        onChangeText={setLastName}
-      />
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-      />
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
+    <ImageBackground
+      source={require('../assets/background-form.png')}
+      resizeMode="cover"
+      style={[style.background, { flex: 1 }]}>
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+
+       <View style={style.textContainer}>
+        <FontAwesomeIcon icon={faUser} style={style.icon} />
+        <TextInput
+          placeholder="First Name"
+          value={firstName}
+          onChangeText={setFirstName}
+          style={style.textForm}
+        />
+        </View>
+
+        <View style={style.textContainer}>
+        <FontAwesomeIcon icon={faUser} style={style.icon} />
+          <TextInput
+            placeholder="Last Name"
+            value={lastName}
+            onChangeText={setLastName}
+            style={style.textForm}
+          />
+          </View>
+          
+        <View style={style.textContainer}>
+        <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
+          <TextInput
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            style={style.textForm}
+          />
+        </View>
+
+        <View style={style.textContainer}>
+        <FontAwesomeIcon icon={faLock} style={style.icon} />  
+          <TextInput
+            placeholder="Password"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            style={style.textForm}
+          />
+        </View>
+
       <Button title="Register" onPress={handleRegister} />
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={{ color: 'blue', marginTop: 10 }}>Already have an account? Login</Text>
+        <Text style={style.link}>Already have an account? Login</Text>
       </TouchableOpacity>
-    </View>
+      </SafeAreaView>
+  </ImageBackground>
   );
 }

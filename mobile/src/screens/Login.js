@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView } from 'react-native';
+import { Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView, View } from 'react-native';
 import { style } from '../styles/style';
 import * as Keychain from 'react-native-keychain';
 import axios from 'axios';
 import Button from '../components/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -56,19 +58,28 @@ export default function Login({ navigation }) {
   resizeMode="cover"
   style={[style.background, { flex: 1 }]}>
   <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <TextInput
-      placeholder="Email"
-      value={email}
-      onChangeText={setEmail}
-      style={style.input}
-    />
-    <TextInput
-      placeholder="Password"
-      secureTextEntry
-      value={password}
-      onChangeText={setPassword}
-      style={style.input}
-    />
+   
+    <View style={style.textContainer}>
+    <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        style={style.textForm}
+      />
+    </View>
+
+    <View style={style.textContainer}>
+      <FontAwesomeIcon icon={faLock} style={style.icon} />
+      <TextInput
+        placeholder="Password"
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+        style={style.textForm}
+      />
+    </View>
+
     <Button title="Login" onPress={handleLogin} />
     <TouchableOpacity onPress={() => navigation.navigate('Register')}>
       <Text style={style.link}>Don't have an account? Register</Text>

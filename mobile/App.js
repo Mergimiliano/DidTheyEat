@@ -10,15 +10,28 @@ import Login from './src/screens/Login';
 import Profile from './src/screens/Profile';
 import { refreshTokens } from './src/services/tokenService';
 import { ActivityIndicator, View } from 'react-native';
-import { colors } from './src/styles/style';
+import { colors, style } from './src/styles/style';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCompass, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const AppTabs = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Communities" component={Communities} />
-    <Tab.Screen name="Profile" component={Profile} />
+  <Tab.Navigator screenOptions={{
+    headerShown: false,
+    tabBarActiveTintColor: colors.offWhite,
+    tabBarInactiveTintColor: colors.navy,
+    tabBarStyle: style.tab,
+    tabBarLabelStyle: style.tabLabel,
+    tabBarIconStyle: style.tabIcons,
+  }}>
+    <Tab.Screen name="Communities" component={Communities} options={{tabBarIcon: ({color, size}) => (
+      <FontAwesomeIcon icon={faCompass} size={size} color={color} />
+    )}}/>
+    <Tab.Screen name="Profile" component={Profile} options={{tabBarIcon: ({color, size}) => (
+      <FontAwesomeIcon icon={faUser} size={size} color={color} />
+    )}}/>
   </Tab.Navigator>
 );
 
