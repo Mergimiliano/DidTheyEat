@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: wp('4%'), // 4% of the screen width
-    fontWeight: 'bold',
+    fontWeight: 800,
     color: colors.navy,
   },
 });

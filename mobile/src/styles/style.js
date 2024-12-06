@@ -1,3 +1,4 @@
+import { width } from '@fortawesome/free-solid-svg-icons/fa0';
 import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -6,11 +7,12 @@ import {
 
 export const colors = {
   yellow: '#ffb71a',
-  lightYellow: '#ffd571',
   peach: '#e2ae86',
   offWhite: '#f0f2f1',
-  pink: '#fed6e1',
   navy: '#11264b',
+  green: '#688E26',
+  red: '#E75A7C',
+  violet: '#A67DB8',
 };
 
 const style = StyleSheet.create({
@@ -48,7 +50,7 @@ const style = StyleSheet.create({
     width: wp('100%'),
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: hp('6%')
+    marginBottom: hp('6%'),
   },
   welcomeImage: {
     width: wp('80%'),
@@ -59,7 +61,7 @@ const style = StyleSheet.create({
   slider: {
     width: wp('100%'),
     marginTop: hp('3%'),
-    alignItems: 'center'
+    alignItems: 'center',
   },
   sliderWidth: wp('100%'),
   textContainer: {
@@ -73,7 +75,6 @@ const style = StyleSheet.create({
     borderRadius: wp('4%'),
     backgroundColor: colors.offWhite,
     justifyContent: 'center',
-    alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -82,13 +83,12 @@ const style = StyleSheet.create({
   },
   textForm: {
     fontSize: wp('4%'),
-    fontWeight: 'bold',
+    fontWeight: 800,
     color: colors.navy,
   },
   icon: {
     color:colors.navy,
-    marginRight: wp('3%')
-
+    margin: wp('3%')
   },
   dotContainer: {
     flexDirection: 'row',
@@ -105,16 +105,42 @@ const style = StyleSheet.create({
   },
   tab: {
     backgroundColor: colors.yellow,
-    height: hp('10%')
+    height: hp('9%'),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  tabLabel: {
-    fontSize: wp('4%'),
-    fontWeight: 'bold',
-    marginTop: hp('0.5%')
+  tabIcon: {
+    flex: 1,
   },
-  tabIcons:{
-    marginTop: hp('0.5%')
-  }
+  topBar:{
+    width: wp('100%'),
+    height: hp('12%'),
+    backgroundColor: colors.violet,
+    borderBottomColor: colors.navy,
+    borderBottomWidth: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: hp('1%') },
+    shadowOpacity: 0.2,
+    shadowRadius: wp('3%'),
+    elevation: 6,
+    paddingHorizontal: wp('3%'),
+    justifyContent: 'center',
+  },
+  filters: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: hp('1%'),
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.offWhite,
+    borderRadius: wp('3%'),
+    paddingHorizontal: wp('3%'),
+    height: hp('5%'),
+    flex: 1,
+  },
+
 });
 
 export { style, colors };

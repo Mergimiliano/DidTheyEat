@@ -13,6 +13,10 @@ import { ActivityIndicator, View } from 'react-native';
 import { colors, style } from './src/styles/style';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCompass, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,18 +24,18 @@ const Tab = createBottomTabNavigator();
 const AppTabs = () => (
   <Tab.Navigator screenOptions={{
     headerShown: false,
+    tabBarLabel: () => null,
     tabBarActiveTintColor: colors.offWhite,
     tabBarInactiveTintColor: colors.navy,
     tabBarStyle: style.tab,
-    tabBarLabelStyle: style.tabLabel,
-    tabBarIconStyle: style.tabIcons,
+    tabBarIconStyle: style.tabIcon,
   }}>
     <Tab.Screen name="Communities" component={Communities} options={{tabBarIcon: ({color, size}) => (
-      <FontAwesomeIcon icon={faCompass} size={size} color={color} />
+        <FontAwesomeIcon icon={faCompass} size={hp('4%')} color={color} />
     )}}/>
-    <Tab.Screen name="Profile" component={Profile} options={{tabBarIcon: ({color, size}) => (
-      <FontAwesomeIcon icon={faUser} size={size} color={color} />
-    )}}/>
+    <Tab.Screen name="Profile" component={Profile} options={{tabBarIcon: ({color, size}) => (            
+        <FontAwesomeIcon icon={faUser} size={hp('4%')} color={color} />
+   )}}/>
   </Tab.Navigator>
 );
 
