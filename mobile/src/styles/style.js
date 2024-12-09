@@ -1,4 +1,3 @@
-import { width } from '@fortawesome/free-solid-svg-icons/fa0';
 import { StyleSheet } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -10,33 +9,17 @@ export const colors = {
   peach: '#e2ae86',
   offWhite: '#f0f2f1',
   navy: '#11264b',
-  green: '#688E26',
+  green: '#63e6be',
   red: '#E75A7C',
-  violet: '#A67DB8',
 };
 
 const style = StyleSheet.create({
+
   background: {
     flex: 1,
     width: wp('100%'),
     height: hp('100%'),
     position: 'absolute',
-  },
-  textTitle: {
-    fontWeight: 'bold',
-    fontSize: wp('8%'),
-    textAlign: 'center',
-    marginBottom: hp('1%'),
-    color: colors.navy,
-  },
-  textSubtitle: {
-    fontSize: wp('4%'),
-    textAlign: 'center',
-    marginBottom: hp('1%'),
-    color: colors.navy,
-  },
-  link:{
-    color: colors.peach,
   },
   getStartedTop: {
     width: wp('100%'),
@@ -52,19 +35,41 @@ const style = StyleSheet.create({
     alignItems: 'center',
     marginBottom: hp('6%'),
   },
-  welcomeImage: {
-    width: wp('80%'),
-    height: hp('30%'),
-    resizeMode: 'contain',
-    marginTop: hp('3%'),
+  title: {
+    fontWeight: 'bold',
+    fontSize: wp('8%'),
+    textAlign: 'center',
+    marginBottom: hp('1%'),
+    color: colors.navy,
   },
-  slider: {
-    width: wp('100%'),
-    marginTop: hp('3%'),
+  subtitle: {
+    fontWeight: 600,
+    fontSize: wp('5%'),
+    textAlign: 'center',
+    marginBottom: hp('1%'),
+    color: colors.navy,
+  },
+  formText: {
+    fontSize: wp('4%'),
+    fontWeight: 800,
+    color: colors.navy,
+  },
+  link: {
+    color: colors.peach,
+  },
+  createButton: {
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: '#007bff',
+    borderRadius: 5,
     alignItems: 'center',
   },
-  sliderWidth: wp('100%'),
-  textContainer: {
+  createButtonText: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  formContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     width: wp('80%'),
@@ -81,14 +86,23 @@ const style = StyleSheet.create({
     shadowRadius: 3,
     elevation: 2,
   },
-  textForm: {
+  icon: {
+    color: colors.navy,
+    margin: wp('3%'),
+  },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.navy,
+    margin: wp('3%'),
+    borderRadius: wp('100%'),
+    paddingHorizontal: wp('4%'),
+    height: hp('6%'),
+  },
+  searchText: {
     fontSize: wp('4%'),
     fontWeight: 800,
-    color: colors.navy,
-  },
-  icon: {
-    color:colors.navy,
-    margin: wp('3%')
+    color: colors.offWhite,
   },
   dotContainer: {
     flexDirection: 'row',
@@ -112,35 +126,18 @@ const style = StyleSheet.create({
   tabIcon: {
     flex: 1,
   },
-  topBar:{
+  imageWelcome: {
+    width: wp('80%'),
+    height: hp('30%'),
+    resizeMode: 'contain',
+    marginTop: hp('3%'),
+  },
+  slider: {
     width: wp('100%'),
-    height: hp('12%'),
-    backgroundColor: colors.violet,
-    borderBottomColor: colors.navy,
-    borderBottomWidth: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: hp('1%') },
-    shadowOpacity: 0.2,
-    shadowRadius: wp('3%'),
-    elevation: 6,
-    paddingHorizontal: wp('3%'),
-    justifyContent: 'center',
-  },
-  filters: {
-    flexDirection: 'row',
+    marginTop: hp('3%'),
     alignItems: 'center',
-    marginTop: hp('1%'),
   },
-  searchBar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.offWhite,
-    borderRadius: wp('3%'),
-    paddingHorizontal: wp('3%'),
-    height: hp('5%'),
-    flex: 1,
-  },
-
+  sliderWidth: wp('100%'),
 });
 
 export { style, colors };

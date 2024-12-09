@@ -39,44 +39,44 @@ export default function Register({ navigation }) {
       style={[style.background, { flex: 1 }]}>
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
-       <View style={style.textContainer}>
+       <View style={style.formContainer}>
         <FontAwesomeIcon icon={faUser} style={style.icon} />
         <TextInput
           placeholder="First Name"
           value={firstName}
           onChangeText={setFirstName}
-          style={style.textForm}
+          style={style.formText}
         />
         </View>
 
-        <View style={style.textContainer}>
+        <View style={style.formContainer}>
         <FontAwesomeIcon icon={faUser} style={style.icon} />
           <TextInput
             placeholder="Last Name"
             value={lastName}
             onChangeText={setLastName}
-            style={style.textForm}
+            style={style.formText}
           />
           </View>
           
-        <View style={style.textContainer}>
+        <View style={style.formContainer}>
         <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
           <TextInput
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
-            style={style.textForm}
+            style={style.formText}
           />
         </View>
 
-        <View style={style.textContainer}>
+        <View style={style.formContainer}>
         <FontAwesomeIcon icon={faLock} style={style.icon} />  
           <TextInput
             placeholder="Password"
             secureTextEntry
             value={password}
             onChangeText={setPassword}
-            style={style.textForm}
+            style={style.formText}
           />
         </View>
 

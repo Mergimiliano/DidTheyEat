@@ -29,8 +29,9 @@ class PetSerializer(serializers.ModelSerializer):
 
 class CommunitySerializer(serializers.ModelSerializer):
     pets = serializers.StringRelatedField(many=True, read_only=True)
+    users = UserProfileSerializer(many=True, read_only=True)
 
     class Meta:
         model = Community
-        fields = ['id', 'name', 'invite_code', 'created_at', 'pets']
-        read_only_fields = ['invite_code', 'created_at', 'pets', 'created_by', 'users']
+        fields = ['id', 'name', 'invite_code', 'created_at', 'pets', 'users']
+        read_only_fields = ['invite_code', 'created_at', 'pets', 'created_by']

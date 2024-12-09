@@ -9,10 +9,10 @@ import Register from './src/screens/Register';
 import Login from './src/screens/Login';
 import Profile from './src/screens/Profile';
 import { refreshTokens } from './src/services/tokenService';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, View, Text } from 'react-native';
 import { colors, style } from './src/styles/style';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCompass, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faPeopleGroup, faGear } from '@fortawesome/free-solid-svg-icons';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -24,20 +24,56 @@ const Tab = createBottomTabNavigator();
 const AppTabs = () => (
   <Tab.Navigator screenOptions={{
     headerShown: false,
-    tabBarLabel: () => null,
     tabBarActiveTintColor: colors.offWhite,
     tabBarInactiveTintColor: colors.navy,
     tabBarStyle: style.tab,
     tabBarIconStyle: style.tabIcon,
   }}>
-    <Tab.Screen name="Communities" component={Communities} options={{tabBarIcon: ({color, size}) => (
-        <FontAwesomeIcon icon={faCompass} size={hp('4%')} color={color} />
-    )}}/>
-    <Tab.Screen name="Profile" component={Profile} options={{tabBarIcon: ({color, size}) => (            
-        <FontAwesomeIcon icon={faUser} size={hp('4%')} color={color} />
-   )}}/>
+    <Tab.Screen 
+      name="Communities" 
+      component={Communities} 
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesomeIcon icon={faPeopleGroup} size={hp('6%')} color={color} />
+        ),
+        tabBarLabel: ({ focused }) => (
+          <Text 
+            style={{
+              color: focused ? colors.offWhite : colors.navy,
+              fontSize: wp('3.5%'),
+              fontWeight: 800,
+              textAlign: 'center',
+            }}
+          >
+            Communities
+          </Text>
+        ),
+      }}
+    />
+    <Tab.Screen 
+      name="Profile" 
+      component={Profile} 
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <FontAwesomeIcon icon={faGear} size={hp('4%')} color={color} />
+        ),
+        tabBarLabel: ({ focused }) => (
+          <Text 
+            style={{
+              color: focused ? colors.offWhite : colors.navy,
+              fontSize: wp('3.5%'),
+              fontWeight: 800,
+              textAlign: 'center',
+            }}
+          >
+            Profile
+          </Text>
+        ),
+      }}
+    />
   </Tab.Navigator>
 );
+
 
 export default function App() {
 

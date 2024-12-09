@@ -35,7 +35,7 @@ export default function GetStarted({ navigation }) {
 
         <View style={style.getStartedTop}>
 
-          <Image source={require('../assets/welcome-image.png')} style={style.welcomeImage} />
+          <Image source={require('../assets/welcome-image.png')} style={style.imageWelcome} />
 
           <FlatList
           data={slides}

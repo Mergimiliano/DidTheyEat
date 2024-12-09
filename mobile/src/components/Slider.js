@@ -5,8 +5,8 @@ export default function Slider({item}) {
 
   return (
     <View style={style.slider}>
-        <Text style={style.textTitle}> {item.title} </Text>
-        <Text style={style.textSubtitle}> {item.text} </Text>
+        <Text style={style.title}> {item.title} </Text>
+        <Text style={style.subtitle}> {item.text} </Text>
     </View>
   );
 }
