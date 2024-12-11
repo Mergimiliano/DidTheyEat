@@ -24,8 +24,8 @@ const Tab = createBottomTabNavigator();
 const AppTabs = () => (
   <Tab.Navigator screenOptions={{
     headerShown: false,
-    tabBarActiveTintColor: colors.offWhite,
-    tabBarInactiveTintColor: colors.navy,
+    tabBarActiveTintColor: colors.yellow,
+    tabBarInactiveTintColor: colors.offWhite,
     tabBarStyle: style.tab,
     tabBarIconStyle: style.tabIcon,
   }}>
@@ -33,13 +33,13 @@ const AppTabs = () => (
       name="Communities" 
       component={Communities} 
       options={{
-        tabBarIcon: ({ color, size }) => (
+        tabBarIcon: ({ color }) => (
           <FontAwesomeIcon icon={faPeopleGroup} size={hp('6%')} color={color} />
         ),
         tabBarLabel: ({ focused }) => (
           <Text 
             style={{
-              color: focused ? colors.offWhite : colors.navy,
+              color: focused ? colors.yellow : colors.offWhite,
               fontSize: wp('3.5%'),
               fontWeight: 800,
               textAlign: 'center',
@@ -60,7 +60,7 @@ const AppTabs = () => (
         tabBarLabel: ({ focused }) => (
           <Text 
             style={{
-              color: focused ? colors.offWhite : colors.navy,
+              color: focused ? colors.yellow : colors.offWhite,
               fontSize: wp('3.5%'),
               fontWeight: 800,
               textAlign: 'center',

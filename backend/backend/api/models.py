@@ -53,8 +53,15 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
 class Community(models.Model):
 
+    environment_list = [
+        ('home', 'home'),
+        ('work', 'work'),
+        ('other', 'other'),
+    ]
+
     name = models.CharField(max_length=100)
     users = models.ManyToManyField(UserProfile, related_name='communities')
+    type = models.CharField(max_length=10, choices=environment_list, default='other')
     invite_code = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     created_by = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)

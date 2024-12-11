@@ -33,5 +33,5 @@ class CommunitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Community
-        fields = ['id', 'name', 'invite_code', 'created_at', 'pets', 'users']
+        fields = ['id', 'name', 'invite_code', 'created_at', 'pets', 'users', 'type']
         read_only_fields = ['invite_code', 'created_at', 'pets', 'created_by']

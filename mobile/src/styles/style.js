@@ -9,8 +9,8 @@ export const colors = {
   peach: '#e2ae86',
   offWhite: '#f0f2f1',
   navy: '#11264b',
-  green: '#63e6be',
-  red: '#E75A7C',
+  green: '#499167',
+  red: '#A30000',
 };
 
 const style = StyleSheet.create({
@@ -118,7 +118,7 @@ const style = StyleSheet.create({
     marginHorizontal: 5,
   },
   tab: {
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.navy,
     height: hp('9%'),
     justifyContent: 'center',
     alignItems: 'center',
