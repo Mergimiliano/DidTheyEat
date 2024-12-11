@@ -4,7 +4,17 @@ import CommunityCard from '../components/CommunityCard';
 import axiosInstance from '../utils/axiosInstance';
 import { colors, style } from '../styles/style';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { cardStyle } from '../styles/cardStyle';
+
+const CreateCommunityCard = ({ onPress }) => {
+  return (
+    <TouchableOpacity style={cardStyle.cardCreate} onPress={onPress}>
+        <FontAwesomeIcon icon={faPlus} size={80} style={{color: colors.navy}} />
+      <Text style={style.subtitle}>Create new</Text>
+    </TouchableOpacity>
+  );
+};
 
 export default function Communities() {
   const [communities, setCommunities] = useState([]);
@@ -25,8 +35,20 @@ export default function Communities() {
   const filteredCommunities = communities.filter(community =>
     community.name.toLowerCase().includes(search.toLowerCase()));
 
+  const data = [
+    ...filteredCommunities,
+    { id: 'create' },
+  ];
+
   const handleCreateCommunity = () => {
     console.log('Test');
+  };
+
+  const renderItem = ({ item }) => {
+    if (item.id === 'create') {
+      return <CreateCommunityCard onPress={handleCreateCommunity} />;
+    }
+    return <CommunityCard community={item} />;
   };
 
   return (
@@ -46,20 +68,14 @@ export default function Communities() {
         <Text>{error}</Text>
       ) : communities.length > 0 ? (
         <FlatList
-          data={filteredCommunities}
+          data={data}
           keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => <CommunityCard community={item} />}
-        />
+          renderItem={renderItem} />
       ) : (
         <Text>Loading or no communities found</Text>
       )}
 
-      <TouchableOpacity
-        style={style.createButton}
-        onPress={handleCreateCommunity}
-      >
-        <Text style={style.createButtonText}>Create New Community</Text>
-      </TouchableOpacity>
     </View>
+
   );
 }

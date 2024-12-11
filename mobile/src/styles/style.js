@@ -14,7 +14,6 @@ export const colors = {
 };
 
 const style = StyleSheet.create({
-
   background: {
     flex: 1,
     width: wp('100%'),
