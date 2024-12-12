@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView, View, Alert } from 'react-native';
 import { style } from '../styles/style';
 import * as Keychain from 'react-native-keychain';
 import axios from 'axios';
@@ -23,7 +23,6 @@ export default function Login({ navigation }) {
       Alert.alert('Error', 'Could not save tokens');
     }
   };
-  
 
   const handleLogin = async () => {
     try {
@@ -38,7 +37,7 @@ export default function Login({ navigation }) {
         await saveTokens(access, refresh);
 
         alert('Login successful!');
-        
+
         navigation.reset({
           index: 0,
           routes: [{ name: 'AppTabs' }],
@@ -58,7 +57,7 @@ export default function Login({ navigation }) {
   resizeMode="cover"
   style={[style.background, { flex: 1 }]}>
   <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-   
+
     <View style={style.formContainer}>
     <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
       <TextInput

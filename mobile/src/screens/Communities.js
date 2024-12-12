@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, FlatList, TextInput, TouchableOpacity } from 'react-native';
 import CommunityCard from '../components/CommunityCard';
 import axiosInstance from '../utils/axiosInstance';
@@ -6,6 +6,9 @@ import { colors, style } from '../styles/style';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { cardStyle } from '../styles/cardStyle';
+import BottomSheet from '@devvie/bottom-sheet';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 const CreateCommunityCard = ({ onPress }) => {
   return (
@@ -20,6 +23,9 @@ export default function Communities() {
   const [communities, setCommunities] = useState([]);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
+  const bottomSheetRef = useRef();
+  const [communityName, setCommunityName] = useState('');
+  const [communityType, setCommunityType] = useState('Other');
 
   useEffect(() => {
     axiosInstance.get('/communities/')
@@ -40,13 +46,14 @@ export default function Communities() {
     { id: 'create' },
   ];
 
-  const handleCreateCommunity = () => {
-    console.log('Test');
+  const handleOpenBottomSheet = () => {
+    bottomSheetRef.current?.open();
   };
+
 
   const renderItem = ({ item }) => {
     if (item.id === 'create') {
-      return <CreateCommunityCard onPress={handleCreateCommunity} />;
+      return <CreateCommunityCard onPress={handleOpenBottomSheet} />;
     }
     return <CommunityCard community={item} />;
   };
@@ -70,10 +77,38 @@ export default function Communities() {
         <FlatList
           data={data}
           keyExtractor={item => item.id.toString()}
-          renderItem={renderItem} />
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false} />
       ) : (
         <Text>Loading or no communities found</Text>
       )}
+
+    <BottomSheet
+        ref={bottomSheetRef}
+        height={hp('50%')}
+        closeOnDragDown
+        closeOnPressMask
+      >
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop:30 }}>
+          <Text> Community name: </Text>
+          <View style={style.formContainer}>
+              <TextInput
+                value={communityName}
+                onChangeText={setCommunityName}
+                style={style.formText}
+              />
+            </View>
+          <Text> Type: </Text>
+          <View style={style.formContainer}>
+              <TextInput
+                value={communityType}
+                onChangeText={setCommunityName}
+                style={style.formText}
+              />
+            </View>
+          </View>
+      </BottomSheet>
+
 
     </View>
 

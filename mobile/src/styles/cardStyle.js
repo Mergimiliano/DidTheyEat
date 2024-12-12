@@ -27,6 +27,7 @@ cardCreate: {
   iconContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: colors.offWhite,
     borderWidth: 2,
     borderColor: colors.navy,
     borderRadius: 10,
