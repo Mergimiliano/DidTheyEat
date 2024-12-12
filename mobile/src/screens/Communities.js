@@ -8,7 +8,7 @@ import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { cardStyle } from '../styles/cardStyle';
 import BottomSheet from '@devvie/bottom-sheet';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { Picker } from '@react-native-picker/picker';
 
 const CreateCommunityCard = ({ onPress }) => {
   return (
@@ -89,26 +89,28 @@ export default function Communities() {
         closeOnDragDown
         closeOnPressMask
       >
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop:30 }}>
-          <Text> Community name: </Text>
-          <View style={style.formContainer}>
-              <TextInput
-                value={communityName}
-                onChangeText={setCommunityName}
-                style={style.formText}
-              />
-            </View>
-          <Text> Type: </Text>
-          <View style={style.formContainer}>
-              <TextInput
-                value={communityType}
-                onChangeText={setCommunityName}
-                style={style.formText}
-              />
-            </View>
+        <Text style={{ fontSize: 16, marginBottom: 10 }}>Community name:</Text>
+        <View style={style.formContainer}>
+          <TextInput
+            value={communityName}
+            onChangeText={setCommunityName}
+            style={style.formText}
+          />
           </View>
-      </BottomSheet>
 
+        <Text style={{ fontSize: 16, marginBottom: 10, marginTop: 20 }}>Type:</Text>
+        <View style={style.formContainer}>
+        <Picker
+          selectedValue={communityType}
+          onValueChange={(itemValue) => setCommunityType(itemValue)}
+          style={{ flex: 1, color: colors.navy }}
+        >
+         <Picker.Item label="Other" value="Other" />
+          <Picker.Item label="Home" value="home" />
+          <Picker.Item label="Work" value="Work" />
+        </Picker>
+            </View>
+      </BottomSheet>
 
     </View>
 
