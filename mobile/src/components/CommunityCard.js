@@ -11,24 +11,29 @@ const communityIcon = {
   other: faTent,
 };
 
-export default function CommunityCard({ community }) {
-
+export default function CommunityCard({ community, onUpdate, onDelete }) {
   return (
     <View style={cardStyle.card}>
-
       <View style={cardStyle.iconContainer}>
         <FontAwesomeIcon
-          icon={communityIcon[community.type] || faTent}
+          icon={communityIcon[community.type.toLowerCase()] || faTent}
           size={80}
-          style={{color: colors.navy}}
+          style={{ color: colors.navy }}
         />
       </View>
 
       <View style={cardStyle.contentContainer}>
         <View style={cardStyle.header}>
-          <Text style={[cardStyle.title, { width: 140, textAlign:'left' }]} numberOfLines={1} ellipsizeMode='tail'>{community.name}</Text>
+          <Text
+            style={[cardStyle.title, { width: 140, textAlign: 'left' }]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {community.name}
+          </Text>
+
           <View style={cardStyle.actions}>
-            <TouchableOpacity onPress={() => onUpdate(community.id)}>
+            <TouchableOpacity onPress={() => onUpdate(community)}>
               <FontAwesomeIcon icon={faPen} size={24} style={cardStyle.actionIcon} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => onDelete(community.id)}>
@@ -38,8 +43,12 @@ export default function CommunityCard({ community }) {
         </View>
 
         <View style={cardStyle.contentRow}>
-          <Text style={cardStyle.content}>Members: {community.users.map(user => user.first_name).join(', ')}</Text>
-          <Text style={cardStyle.content}>Pets: {community.pets.map(pet => pet.name).join(', ')}</Text>
+          <Text style={cardStyle.content}>
+            Members: {community.users.map(user => user.first_name).join(', ') || 'None'}
+          </Text>
+          <Text style={cardStyle.content}>
+            Pets: {community.pets.map(pet => pet.name).join(', ') || 'None'}
+          </Text>
         </View>
       </View>
     </View>

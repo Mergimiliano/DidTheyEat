@@ -19,13 +19,13 @@ export const createCommunity = (communityData) => {
 };
 
 export const updateCommunity = (id, communityData) => {
-  return axiosInstance.patch(`/communities/${id}`, communityData)
+  return axiosInstance.patch(`/communities/${id}/`, communityData)
     .then(response => response.data)
     .catch(err => { throw err; });
 };
 
 export const deleteCommunity = (id) => {
-  return axiosInstance.delete(`/communities/${id}`)
+  return axiosInstance.delete(`/communities/${id}/`)
     .then(response => response.data)
     .catch(err => { throw err; });
 };

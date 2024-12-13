@@ -8,6 +8,8 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 - Pet and Community limit (when reaching a high level of pets suggest to group them)
 
+- can create frontend empty name community
+
 - icon
 
 - community with tabs for pets and users

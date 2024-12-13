@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { View, Text, FlatList, TextInput, TouchableOpacity, Alert } from 'react-native';
 import CommunityCard from '../components/CommunityCard';
 import { colors, style } from '../styles/style';
@@ -9,8 +9,7 @@ import BottomSheet from '@devvie/bottom-sheet';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Picker } from '@react-native-picker/picker';
 import Button from '../components/Button';
-import { getCommunities } from '../services/communityService';
-import { createCommunity } from '../services/communityService';
+import { getCommunities, createCommunity, updateCommunity, deleteCommunity } from '../services/communityService';
 import { faHouse, faBuilding, faTent } from '@fortawesome/free-solid-svg-icons';
 
 const CreateCommunityCard = ({ onPress }) => {
@@ -35,6 +34,9 @@ export default function Communities() {
   const bottomSheetRef = useRef();
   const [communityName, setCommunityName] = useState('');
   const [communityType, setCommunityType] = useState('Other');
+  const [refreshing, setRefreshing] = useState(false);
+  const [mode, setMode] = useState('create');
+  const [currentCommunity, setCurrentCommunity] = useState(null);
 
   useEffect(() => {
   getCommunities()
@@ -45,6 +47,20 @@ export default function Communities() {
     });
   }, []);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    getCommunities()
+      .then(data => {
+        setCommunities(data);
+        setRefreshing(false);
+      })
+      .catch(err => {
+        console.error('Error refreshing communities:', err);
+        setError('Failed to refresh communities');
+        setRefreshing(false);
+      });
+  };
+
   const filteredCommunities = communities.filter(community =>
     community.name.toLowerCase().includes(search.toLowerCase()));
 
@@ -53,45 +69,84 @@ export default function Communities() {
     { id: 'create' },
   ];
 
-  const handleOpenBottomSheet = () => {
+  const handleOpenEditBottomSheet = (community) => {
+    setMode('update');
+    setCurrentCommunity(community);
+    setCommunityName(community.name);
+    setCommunityType(community.type);
     bottomSheetRef.current?.open();
   };
 
-  const handleCreate = () => {
-    const createdCommunity = {
+  const handleSubmit = () => {
+    const newCommunity = {
       name: communityName,
       type: communityType,
     };
 
-    createCommunity(createdCommunity)
-    .then(() => {
-      Alert.alert('Community created successfully!');
-      getCommunities()
-      .then( data => {
-        setCommunities(data);
-        setCommunityName('');
-        setCommunityType('Other');
-        bottomSheetRef.current.close();
-      })
-      .catch(err => {
-        console.error('Error fetching communities:', err);
-        setError('Failed to fetch updated communities');
-      });
-    })
-    .catch(err => {
-      console.error('Error creating community:', err);
-      setError('Failed to create community');
-      Alert.alert('Error', 'There was an error creating the community');
-    });
-  };
-
-
-  const renderItem = ({ item }) => {
-    if (item.id === 'create') {
-      return <CreateCommunityCard onPress={handleOpenBottomSheet} />;
+    if (mode === 'create') {
+      createCommunity(newCommunity)
+        .then(() => {
+          onRefresh();
+          bottomSheetRef.current?.close();
+        })
+        .catch(err => {
+          console.error('Error creating community:', err);
+          Alert.alert('Error', 'Failed to create community');
+        });
+    } else if (mode === 'update' && currentCommunity) {
+      updateCommunity(currentCommunity.id, newCommunity)
+        .then(() => {
+          onRefresh();
+          bottomSheetRef.current?.close();
+        })
+        .catch(err => {
+          console.error('Error updating community:', err);
+          Alert.alert('Error', 'Failed to update community');
+        });
     }
-    return <CommunityCard community={item} />;
   };
+
+  const handleDelete = (id) => {
+    Alert.alert(
+      'Confirm Delete',
+      'Are you sure you want to delete this community?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            deleteCommunity(id)
+              .then(() => {
+                onRefresh();
+              })
+              .catch(err => {
+                console.error('Error deleting community:', err);
+                Alert.alert('Error', 'Failed to delete the community.');
+              });
+          },
+        },
+      ]
+    );
+  };
+
+  const renderItem = useCallback(({ item }) => {
+    if (item.id === 'create') {
+      return <CreateCommunityCard onPress={() => {
+        setMode('create');
+        setCommunityName('');
+        setCommunityType('other');
+        bottomSheetRef.current?.open();
+      }} />;
+    }
+    return (
+      <CommunityCard
+        community={item}
+        onUpdate={handleOpenEditBottomSheet}
+        onDelete={handleDelete}
+      />
+    );
+  }, []);
 
   return (
     <View style={{ flex: 1}}>
@@ -107,13 +162,18 @@ export default function Communities() {
         </View>
 
       {error ? (
-        <Text>{error}</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color={colors.yellow} />
+      </View>
       ) : communities.length > 0 ? (
         <FlatList
           data={data}
           keyExtractor={item => item.id.toString()}
           renderItem={renderItem}
-          showsVerticalScrollIndicator={false} />
+          showsVerticalScrollIndicator={false}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          />
       ) : (
         <Text>Loading or no communities found</Text>
       )}
@@ -164,7 +224,12 @@ export default function Communities() {
               style={{color: colors.navy}}
             />
           </View>
-          <Button title="Create" onPress={handleCreate} color={colors.green} />
+          <Button
+            title={mode === 'create' ? 'Create' : 'Update'}
+            onPress={handleSubmit}
+            color={colors.green}
+            disabled={!communityName.trim()}
+          />
       </View>
     </BottomSheet>
 
