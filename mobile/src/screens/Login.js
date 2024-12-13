@@ -6,6 +6,7 @@ import axios from 'axios';
 import Button from '../components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { colors } from '../styles/style';
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
@@ -79,7 +80,7 @@ export default function Login({ navigation }) {
       />
     </View>
 
-    <Button title="Login" onPress={handleLogin} />
+    <Button title="Login" onPress={handleLogin} color={colors.yellow} />
     <TouchableOpacity onPress={() => navigation.navigate('Register')}>
       <Text style={style.link}>Don't have an account? Register</Text>
     </TouchableOpacity>

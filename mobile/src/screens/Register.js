@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import { style } from '../styles/style';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { colors } from '../styles/style';
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
@@ -80,7 +81,7 @@ export default function Register({ navigation }) {
           />
         </View>
 
-      <Button title="Register" onPress={handleRegister} />
+      <Button title="Register" onPress={handleRegister} color={colors.yellow}/>
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
         <Text style={style.link}>Already have an account? Login</Text>
       </TouchableOpacity>

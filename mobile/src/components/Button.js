@@ -6,7 +6,7 @@ import {
 } from 'react-native-responsive-screen';
 import { colors } from '../styles/style';
 
-export default function Button({ onPress, title }) {
+export default function Button({ onPress, title, color = colors.yellow }) {
   const [pressed, setPressed] = useState(false);
 
   const handlePressIn = () => setPressed(true);
@@ -14,7 +14,7 @@ export default function Button({ onPress, title }) {
 
   return (
     <TouchableOpacity
-      style={[styles.button, pressed && styles.buttonActive]}
+      style={[styles.button, { backgroundColor: pressed ? `${color}AA` : color, borderColor: color }]}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       onPress={onPress}

@@ -1,11 +1,11 @@
 meta {
-  name: community-create
+  name: community-update
   type: http
-  seq: 6
+  seq: 7
 }
 
-post {
-  url: {{host}}/communities/
+patch {
+  url: {{host}}/communities/2/
   body: json
   auth: bearer
 }
@@ -16,7 +16,7 @@ auth:bearer {
 
 body:json {
   {
-    "name": "Test community",
+    "name": "PEPEPE",
     "type": "home"
   }
   

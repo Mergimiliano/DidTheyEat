@@ -26,7 +26,7 @@ export default function CommunityCard({ community }) {
 
       <View style={cardStyle.contentContainer}>
         <View style={cardStyle.header}>
-          <Text style={cardStyle.title} numberOfLines={1} ellipsizeMode='tail'>{community.name}</Text>
+          <Text style={[cardStyle.title, { width: 140, textAlign:'left' }]} numberOfLines={1} ellipsizeMode='tail'>{community.name}</Text>
           <View style={cardStyle.actions}>
             <TouchableOpacity onPress={() => onUpdate(community.id)}>
               <FontAwesomeIcon icon={faPen} size={24} style={cardStyle.actionIcon} />

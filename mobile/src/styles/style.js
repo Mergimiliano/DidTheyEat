@@ -71,6 +71,7 @@ const style = StyleSheet.create({
   formContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     width: wp('80%'),
     height: hp('6%'),
     marginBottom: hp('2%'),
@@ -78,7 +79,6 @@ const style = StyleSheet.create({
     borderColor: colors.navy,
     borderRadius: wp('4%'),
     backgroundColor: colors.offWhite,
-    justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -137,6 +137,9 @@ const style = StyleSheet.create({
     alignItems: 'center',
   },
   sliderWidth: wp('100%'),
+  bottomSheet:{
+    backgroundColor: colors.yellow,
+  },
 });
 
 export { style, colors };

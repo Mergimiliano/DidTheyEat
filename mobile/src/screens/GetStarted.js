@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { View, ImageBackground, Image, SafeAreaView, FlatList, Animated } from 'react-native';
-import { style } from '../styles/style';
+import { colors, style } from '../styles/style';
 import Button from '../components/Button';
 import Slider from '../components/Slider';
 
@@ -87,8 +87,8 @@ export default function GetStarted({ navigation }) {
         </View>
 
         <View style={style.getStartedBottom}>
-          <Button title="Register" onPress={() => navigation.navigate('Register')} />
-          <Button title="Login" onPress={() => navigation.navigate('Login')} />
+          <Button title="Register" onPress={() => navigation.navigate('Register')} color={colors.yellow} />
+          <Button title="Login" onPress={() => navigation.navigate('Login')} color={colors.yellow} />
         </View>
       </ImageBackground>
     </SafeAreaView>
