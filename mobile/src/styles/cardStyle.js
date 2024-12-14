@@ -43,6 +43,7 @@ cardCreate: {
     alignItems: 'center',
   },
   title: {
+    flex: 1,
     fontSize: 40,
     fontWeight: 'bold',
     fontFamily: 'satoshi',
@@ -50,11 +51,12 @@ cardCreate: {
     textAlign: 'center',
   },
   actions: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   actionIcon: {
     marginLeft: 15,
+    marginTop: 10,
     color: colors.offWhite,
   },
   contentRow: {

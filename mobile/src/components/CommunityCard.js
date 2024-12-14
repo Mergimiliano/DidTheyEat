@@ -11,9 +11,9 @@ const communityIcon = {
   other: faTent,
 };
 
-export default function CommunityCard({ community, onUpdate, onDelete }) {
+export default function CommunityCard({ community, onUpdate, onDelete, onPress }) {
   return (
-    <View style={cardStyle.card}>
+    <TouchableOpacity style={cardStyle.card} onPress={onPress}>
       <View style={cardStyle.iconContainer}>
         <FontAwesomeIcon
           icon={communityIcon[community.type.toLowerCase()] || faTent}
@@ -25,14 +25,14 @@ export default function CommunityCard({ community, onUpdate, onDelete }) {
       <View style={cardStyle.contentContainer}>
         <View style={cardStyle.header}>
           <Text
-            style={[cardStyle.title, { width: 140, textAlign: 'left' }]}
+            style={[cardStyle.title, { textAlign: 'left' }]}
             numberOfLines={1}
             ellipsizeMode="tail"
           >
             {community.name}
           </Text>
 
-          <View style={cardStyle.actions}>
+          <View style={[cardStyle.actions]}>
             <TouchableOpacity onPress={() => onUpdate(community)}>
               <FontAwesomeIcon icon={faPen} size={24} style={cardStyle.actionIcon} />
             </TouchableOpacity>
@@ -51,6 +51,6 @@ export default function CommunityCard({ community, onUpdate, onDelete }) {
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

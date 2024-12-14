@@ -29,6 +29,7 @@ const AppTabs = () => (
     tabBarInactiveTintColor: colors.offWhite,
     tabBarStyle: style.tab,
     tabBarIconStyle: style.tabIcon,
+    tabBarLabelPosition: 'below-icon',
   }}>
     <Tab.Screen 
       name="Communities" 
