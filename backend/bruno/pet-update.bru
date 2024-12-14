@@ -1,0 +1,23 @@
+meta {
+  name: pet-update
+  type: http
+  seq: 15
+}
+
+patch {
+  url: {{host}}/pets/1/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Real dog",
+    "type": "dog"
+  }
+  
+}

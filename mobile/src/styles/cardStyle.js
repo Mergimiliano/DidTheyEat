@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native"
 import { colors } from "./style";
 
 const cardStyle = StyleSheet.create({
-card: {
+  card: {
     height: 150,
     flexDirection: 'row',
     padding: 15,
@@ -12,7 +12,7 @@ card: {
     borderColor: colors.navy,
     backgroundColor: colors.yellow,
   },
-cardCreate: {
+  cardCreate: {
     height: 150,
     flexDirection: 'column',
     padding: 15,
@@ -35,40 +35,23 @@ cardCreate: {
   },
   contentContainer: {
     flex: 1,
-    marginLeft: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    margin: 20,
   },
   title: {
-    flex: 1,
     fontSize: 40,
     fontWeight: 'bold',
-    fontFamily: 'satoshi',
     color: colors.navy,
     textAlign: 'center',
-  },
-  actions: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  actionIcon: {
-    marginLeft: 15,
-    marginTop: 10,
-    color: colors.offWhite,
-  },
-  contentRow: {
-    marginTop: 5,
-    flexDirection: 'column',
-    flexWrap: 'wrap',
+    marginBottom:25,
+    marginTop: -15,
   },
   content: {
     fontSize: 16,
     color: colors.navy,
     fontWeight: 600,
-    marginRight: 10,
   },
 });
 

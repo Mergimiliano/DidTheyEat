@@ -105,11 +105,15 @@ class CreatePet(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         community_id = self.kwargs.get('community_id')
-        if not Community.objects.filter(id=community_id).exists():
-            raise ValidationError("The specified community does not exist.")
+        community = get_object_or_404(Community, id=community_id)
+        if self.request.user not in community.users.all():
+            raise PermissionDenied("You do not have permission to add a pet to this community.")
         user = self.request.user
         created_by_name = f"{user.first_name} {user.last_name}"
-        serializer.save(created_by=created_by_name)
+        serializer.save(
+            created_by=created_by_name,
+            community=community
+        )
 
 class PetDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PetSerializer

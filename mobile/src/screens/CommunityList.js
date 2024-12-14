@@ -11,6 +11,7 @@ import { Picker } from '@react-native-picker/picker';
 import Button from '../components/Button';
 import { getCommunities, createCommunity, updateCommunity, deleteCommunity } from '../services/communityService';
 import { faHouse, faBuilding, faTent } from '@fortawesome/free-solid-svg-icons';
+import { ActivityIndicator } from 'react-native';
 
 const CreateCommunityCard = ({ onPress }) => {
   return (
@@ -33,7 +34,7 @@ export default function CommunityList({ navigation }) {
   const [search, setSearch] = useState('');
   const bottomSheetRef = useRef();
   const [communityName, setCommunityName] = useState('');
-  const [communityType, setCommunityType] = useState('Other');
+  const [communityType, setCommunityType] = useState('other');
   const [refreshing, setRefreshing] = useState(false);
   const [mode, setMode] = useState('create');
   const [currentCommunity, setCurrentCommunity] = useState(null);

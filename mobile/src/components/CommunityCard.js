@@ -23,34 +23,30 @@ export default function CommunityCard({ community, onUpdate, onDelete, onPress }
       </View>
 
       <View style={cardStyle.contentContainer}>
-        <View style={cardStyle.header}>
-          <Text
-            style={[cardStyle.title, { textAlign: 'left' }]}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-          >
-            {community.name}
-          </Text>
+        <Text
+          style={[cardStyle.title, { textAlign: 'left' }]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {community.name}
+        </Text>
+        <Text style={cardStyle.content}>
+          Members: {community.users.map(user => user.first_name).join(', ') || 'None'}
+        </Text>
+        <Text style={cardStyle.content}>
+          Pets: {community.pets.map(pet => pet.name).join(', ') || 'None'}
+        </Text>
+      </View>
 
-          <View style={[cardStyle.actions]}>
-            <TouchableOpacity onPress={() => onUpdate(community)}>
-              <FontAwesomeIcon icon={faPen} size={24} style={cardStyle.actionIcon} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => onDelete(community.id)}>
-              <FontAwesomeIcon icon={faTrash} size={24} style={cardStyle.actionIcon} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={cardStyle.contentRow}>
-          <Text style={cardStyle.content}>
-            Members: {community.users.map(user => user.first_name).join(', ') || 'None'}
-          </Text>
-          <Text style={cardStyle.content}>
-            Pets: {community.pets.map(pet => pet.name).join(', ') || 'None'}
-          </Text>
-        </View>
+      <View style={cardStyle.iconActionsContainer}>
+        <TouchableOpacity onPress={() => onUpdate(community)} style={{marginBottom: 40}}>
+          <FontAwesomeIcon icon={faPen} size={36} color={colors.offWhite} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => onDelete(community.id)}>
+          <FontAwesomeIcon icon={faTrash} size={36} color={colors.offWhite} />
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
 }
+

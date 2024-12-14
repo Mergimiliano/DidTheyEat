@@ -85,6 +85,7 @@ class Pet(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=10, choices=animal_list, default='other')
     fed = models.BooleanField(default=False)
+    feed_every = models.DecimalField()
     fed_at = models.DateTimeField(null=True, blank=True)
     fed_by = models.CharField(max_length=100, blank=True, null=True)
     community = models.ForeignKey(Community, on_delete=models.CASCADE, related_name='pets')

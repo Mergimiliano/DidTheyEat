@@ -1,0 +1,23 @@
+meta {
+  name: pet-create
+  type: http
+  seq: 13
+}
+
+post {
+  url: {{host}}/communities/10/pets/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "name": "Test cat",
+    "type": "dog"
+  }
+  
+}
