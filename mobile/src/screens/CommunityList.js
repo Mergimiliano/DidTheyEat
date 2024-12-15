@@ -177,7 +177,7 @@ export default function CommunityList({ navigation }) {
           onRefresh={onRefresh}
           />
       ) : (
-        <Text>Loading or no communities found</Text>
+        <Text></Text>
       )}
 
     <BottomSheet
