@@ -166,3 +166,56 @@ class CommunityDetail(generics.RetrieveUpdateDestroyAPIView):
         if self.request.user not in community.users.all():
             self.permission_denied(self.request, message="You do not have access to this community.")
         return community
+
+
+class InviteUserToCommunity(APIView):
+
+    def post(self, request, *args, **kwargs):
+        community_id = kwargs.get('community_id')
+        community = Community.objects.filter(id=community_id).first()
+        if not community:
+            raise NotFound("Community not found.")
+
+        if request.user not in community.users.all():
+            raise PermissionDenied("You do not have permission to invite users to this community.")
+
+        email = request.data.get("email")
+        if not email:
+            raise ValidationError("Email is required.")
+
+        user = User.objects.filter(email=email).first()
+        if not user:
+            raise NotFound("User with the provided email not found.")
+
+        community.users.add(user)
+        community.save()
+
+        return Response({"detail": f"User {email} has been invited to the community."}, status=200)
+
+
+class RemoveUserFromCommunity(APIView):
+
+    def post(self, request, *args, **kwargs):
+        community_id = kwargs.get('community_id')
+        community = Community.objects.filter(id=community_id).first()
+        if not community:
+            raise NotFound("Community not found.")
+
+        if request.user not in community.users.all():
+            raise PermissionDenied("You do not have permission to remove users from this community.")
+
+        email = request.data.get("email")
+        if not email:
+            raise ValidationError("Email is required.")
+
+        user = User.objects.filter(email=email).first()
+        if not user:
+            raise NotFound("User with the provided email not found.")
+
+        if user not in community.users.all():
+            raise ValidationError("This user is not a member of the community.")
+
+        community.users.remove(user)
+        community.save()
+
+        return Response({"detail": f"User {email} has been removed from the community."}, status=200)

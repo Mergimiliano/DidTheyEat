@@ -40,12 +40,12 @@ export default function CommunityList({ navigation }) {
   const [currentCommunity, setCurrentCommunity] = useState(null);
 
   useEffect(() => {
-  getCommunities()
-    .then(data => setCommunities(data))
-    .catch(err => {
-      console.error('Error fetching communities:', err);
-      setError('Failed to fetch communities');
-    });
+    getCommunities()
+      .then(data => setCommunities(data))
+      .catch(err => {
+        console.error('Error fetching communities:', err);
+        setError('Failed to fetch communities');
+      });
   }, []);
 
   const onRefresh = () => {
@@ -63,7 +63,8 @@ export default function CommunityList({ navigation }) {
   };
 
   const filteredCommunities = communities.filter(community =>
-    community.name.toLowerCase().includes(search.toLowerCase()));
+    community.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   const data = [
     ...filteredCommunities,
@@ -131,99 +132,97 @@ export default function CommunityList({ navigation }) {
     );
   };
 
-  const renderItem = useCallback(({ item }) => {
+  const renderItem = ({ item }) => {
     if (item.id === 'create') {
-      return <CreateCommunityCard onPress={() => {
-        setMode('create');
-        setCommunityName('');
-        setCommunityType('other');
-        bottomSheetRef.current?.open();
-      }} />;
+      return (
+        <CreateCommunityCard
+          onPress={() => {
+            setMode('create');
+            setCommunityName('');
+            setCommunityType('other');
+            bottomSheetRef.current?.open();
+          }}
+        />
+      );
     }
     return (
       <CommunityCard
         community={item}
-        onPress={() => navigation.navigate('CommunityDetails', { community: item })}
+        onPress={() => navigation.navigate('CommunityDetails', { communityId: item.id, communityName: item.name })}
         onUpdate={handleOpenEditBottomSheet}
         onDelete={handleDelete}
       />
     );
-  }, [navigation]);
+  };
 
   return (
-    <View style={{ flex: 1}}>
+    <View style={{ flex: 1 }}>
       <View style={style.searchBar}>
         <FontAwesomeIcon icon={faSearch} size={16} color={colors.offWhite} />
-           <TextInput
-            placeholderTextColor={colors.offWhite}
-            style={style.searchText}
-            placeholder='Search'
-            value={search}
-            onChangeText={setSearch}
-          />
-        </View>
+        <TextInput
+          placeholderTextColor={colors.offWhite}
+          style={style.searchText}
+          placeholder="Search"
+          value={search}
+          onChangeText={setSearch}
+        />
+      </View>
 
       {error ? (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color={colors.yellow} />
-      </View>
-      ) : communities.length > 0 ? (
+          <ActivityIndicator size="large" color={colors.yellow} />
+        </View>
+      ) : (
         <FlatList
           data={data}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
           showsVerticalScrollIndicator={false}
           refreshing={refreshing}
           onRefresh={onRefresh}
-          />
-      ) : (
-        <Text></Text>
+        />
       )}
 
-    <BottomSheet
-      ref={bottomSheetRef}
-      height={hp('60%')}
-      closeOnDragDown
-      closeOnPressMask
-      style={style.bottomSheet}
-    >
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={style.subtitle}>
-          Community Name:
-        </Text>
-        <View style={style.formContainer}>
-          <TextInput
-            value={communityName}
-            onChangeText={setCommunityName}
-            style={style.formText}
-          />
-        </View>
+      <BottomSheet
+        ref={bottomSheetRef}
+        height={hp('60%')}
+        closeOnDragDown
+        closeOnPressMask
+        style={style.bottomSheet}
+      >
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={style.subtitle}>Community Name:</Text>
+          <View style={style.formContainer}>
+            <TextInput
+              value={communityName}
+              onChangeText={setCommunityName}
+              style={style.formText}
+            />
+          </View>
 
-        <Text style={style.subtitle}>
-          Type:
-        </Text>
-        <View style={style.formContainer}>
-          <Picker
-            selectedValue={communityType}
-            onValueChange={(itemValue) => setCommunityType(itemValue)}
-            style={{
-              flex: 1,
-              color: colors.navy,
-              width: '100%',
-              height: '100%'
-            }}
-            dropdownIconColor={colors.navy}
-          >
-            <Picker.Item label="Other" value="other" />
-            <Picker.Item label="Home" value="home" />
-            <Picker.Item label="Work" value="work" />
-          </Picker>
+          <Text style={style.subtitle}>Type:</Text>
+          <View style={style.formContainer}>
+            <Picker
+              selectedValue={communityType}
+              onValueChange={(itemValue) => setCommunityType(itemValue)}
+              style={{
+                flex: 1,
+                color: colors.navy,
+                width: '100%',
+                height: '100%',
+              }}
+              dropdownIconColor={colors.navy}
+            >
+              <Picker.Item label="Other" value="other" />
+              <Picker.Item label="Home" value="home" />
+              <Picker.Item label="Work" value="work" />
+            </Picker>
           </View>
           <View style={[cardStyle.iconContainer, { marginBottom: 10 }]}>
             <FontAwesomeIcon
               icon={communityIcon[communityType.toLowerCase()] || faTent}
               size={80}
-              style={{color: colors.navy}}
+              style={{ color: colors.navy }}
             />
           </View>
           <Button
@@ -232,10 +231,8 @@ export default function CommunityList({ navigation }) {
             color={colors.green}
             disabled={!communityName.trim()}
           />
-      </View>
-    </BottomSheet>
-
+        </View>
+      </BottomSheet>
     </View>
-
   );
 }

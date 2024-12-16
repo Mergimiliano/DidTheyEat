@@ -30,10 +30,12 @@ export default function CommunityCard({ community, onUpdate, onDelete, onPress }
         >
           {community.name}
         </Text>
-        <Text style={cardStyle.content}>
+        <Text style={cardStyle.content}  numberOfLines={1}
+          ellipsizeMode="tail">
           Members: {community.users.map(user => user.first_name).join(', ') || 'None'}
         </Text>
-        <Text style={cardStyle.content}>
+        <Text style={cardStyle.content} numberOfLines={1}
+          ellipsizeMode="tail">
           Pets: {community.pets.map(pet => pet.name).join(', ') || 'None'}
         </Text>
       </View>

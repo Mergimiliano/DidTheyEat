@@ -1,11 +1,5 @@
 import axiosInstance from '../utils/axiosInstance';
 
-export const getPets = (communityId) => {
-  return axiosInstance.get(`/communities/${communityId}/pets/`)
-    .then(response => response.data)
-    .catch(err => { throw err; });
-};
-
 export const getPet = (id) => {
   return axiosInstance.get(`/pets/${id}`)
     .then(response => response.data)

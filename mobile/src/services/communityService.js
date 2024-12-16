@@ -7,7 +7,7 @@ export const getCommunities = () => {
 };
 
 export const getCommunity = (id) => {
-  return axiosInstance.get(`/communities/${id}`)
+  return axiosInstance.get(`/communities/${id}/`)
     .then(response => response.data)
     .catch(err => { throw err; });
 };
@@ -28,4 +28,16 @@ export const deleteCommunity = (id) => {
   return axiosInstance.delete(`/communities/${id}/`)
     .then(response => response.data)
     .catch(err => { throw err; });
+};
+
+export const inviteUser = (id,email) => {
+  return axiosInstance.post(`/communities/${id}/invite`, email)
+  .then(response => response.data)
+  .catch(err => { throw err; });
+};
+
+export const removeUser = (id,email) => {
+  return axiosInstance.post(`/communities/${id}/remove`, email)
+  .then(response => response.data)
+  .catch(err => { throw err; });
 };

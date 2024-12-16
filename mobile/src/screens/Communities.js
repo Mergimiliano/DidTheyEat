@@ -24,11 +24,14 @@ export default function Communities() {
               <FontAwesomeIcon icon={faArrowLeft} size={40} color="white" />
             </TouchableOpacity>
           ),
-          headerTitle: () => (
-            <Text style={{ color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center' , marginBottom:hp('1%')}}>
-              {route.params?.community?.name || 'Community Details'}
-            </Text>
-          ),
+          headerTitle: () => {
+            const communityName = route.params?.communityName || 'Community Details';
+            return (
+              <Text style={{ color: 'white', fontSize: 40, fontWeight: 'bold', textAlign: 'center', marginBottom: hp('1%') }}>
+                {communityName}
+              </Text>
+            );
+          },
           headerStyle: {
             backgroundColor: colors.navy, height: hp('8%')
           },
