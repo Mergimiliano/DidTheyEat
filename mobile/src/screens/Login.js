@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {BASE_URL} from '@env';
 import { Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView, View, Alert } from 'react-native';
 import { style } from '../styles/style';
 import * as Keychain from 'react-native-keychain';
@@ -27,7 +28,7 @@ export default function Login({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://10.0.2.2:8000/token/', {
+      const response = await axios.post(`${BASE_URL}/token/`, {
         email,
         password,
       });
@@ -36,8 +37,6 @@ export default function Login({ navigation }) {
         const { access, refresh } = response.data;
 
         await saveTokens(access, refresh);
-
-        alert('Login successful!');
 
         navigation.reset({
           index: 0,

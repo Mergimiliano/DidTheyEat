@@ -51,11 +51,13 @@ export default function PetCard({ pet, onUpdate, onDelete, onPress }) {
         <Text style={cardStyle.content}>
           Fed: {formatDate(pet.fed_at)}
         </Text>
-        <Text style={cardStyle.content}>
+        <Text style={cardStyle.content}numberOfLines={1}
+          ellipsizeMode="tail">
           By: {pet.fed_by || 'None'}
         </Text>
-        <Text style={cardStyle.content}>
-          Feed it every {pet.feed_every} h
+        <Text style={cardStyle.content}numberOfLines={1}
+          ellipsizeMode="tail">
+          Feed every {pet.feed_every} h
         </Text>
       </View>
 

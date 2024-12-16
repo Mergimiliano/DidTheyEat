@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {BASE_URL} from '@env';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView } from 'react-native';
 import Button from '../components/Button';
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
@@ -14,7 +15,7 @@ export default function Register({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch(`http://10.0.2.2:8000/user/register/`, {
+      const response = await fetch(`${BASE_URL}/user/register/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, first_name: firstName, last_name: lastName }),
@@ -23,7 +24,6 @@ export default function Register({ navigation }) {
       const data = await response.json();
 
       if (response.ok) {
-        alert('Registration successful!');
         navigation.navigate('Login');
       } else {
         alert('Registration failed. Please try again.');
@@ -59,7 +59,7 @@ export default function Register({ navigation }) {
             style={style.formText}
           />
           </View>
-          
+
         <View style={style.formContainer}>
         <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
           <TextInput

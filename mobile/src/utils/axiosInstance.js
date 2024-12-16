@@ -1,8 +1,11 @@
 import axios from 'axios';
 import * as Keychain from 'react-native-keychain';
+import {BASE_URL} from '@env';
+
+console.log(BASE_URL);
 
 const axiosInstance = axios.create({
-  baseURL: 'http://10.0.2.2:8000',
+  baseURL: BASE_URL,
 });
 
   axiosInstance.interceptors.request.use(
@@ -21,7 +24,7 @@ const axiosInstance = axios.create({
         return Promise.reject(error);
       }
     );
-  
+
   axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
@@ -29,7 +32,7 @@ const axiosInstance = axios.create({
 
       if (error.response && error.response.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
-  
+
         try {
           const credentials = await Keychain.getInternetCredentials('refresh_token');
           const refreshToken = credentials?.password;
@@ -38,11 +41,11 @@ const axiosInstance = axios.create({
           const refreshResponse = await axios.post('http://10.0.2.2:8000/token/refresh/', {
             refresh: refreshToken,
           });
-  
+
           const { access, refresh } = refreshResponse.data;
           await Keychain.setInternetCredentials('access_token', 'access', access);
           await Keychain.setInternetCredentials('refresh_token', 'refresh', refresh);
-  
+
           originalRequest.headers['Authorization'] = `Bearer ${access}`;
           return axiosInstance(originalRequest);
         } catch (refreshError) {
@@ -50,10 +53,9 @@ const axiosInstance = axios.create({
           return Promise.reject(refreshError);
         }
       }
-  
+
       return Promise.reject(error);
     }
   );
-  
+
 export default axiosInstance;
-  

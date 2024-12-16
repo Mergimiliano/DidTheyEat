@@ -49,6 +49,8 @@ const style = StyleSheet.create({
     color: colors.navy,
   },
   formText: {
+    paddingLeft: 10,
+    width: '100%',
     fontSize: wp('4%'),
     fontWeight: 800,
     color: colors.navy,
@@ -71,7 +73,7 @@ const style = StyleSheet.create({
   formContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     width: wp('80%'),
     height: hp('6%'),
     marginBottom: hp('2%'),

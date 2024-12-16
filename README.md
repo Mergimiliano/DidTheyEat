@@ -4,19 +4,23 @@ DidTheyEat is a web application designed to help pet owners track and manage the
 
 # TO-DO:
 
+- if bottom bar for checks
+
+- icon
+
+- profile page with delete the account
+
+- read me
+
+- route back if a user removes itself from a community
+
 - 401 when a user that doesnt exist tries to login
 
 - Pet and Community limit (when reaching a high level of pets suggest to group them)
 
 - can create frontend empty name community
 
-- icon
-
 - clean
-
-- community with tabs for pets and users
-
-- Set a timer logic (with selectable time) that resets the "fed" field when loading the community pets
 
 - add backend checks for email register
 
