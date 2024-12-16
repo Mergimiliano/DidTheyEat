@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import * as Keychain from 'react-native-keychain';
+import { View, Text } from 'react-native';
+import Button from '../components/Button';
 import axiosInstance from '../utils/axiosInstance';
 
 export default function Profile({ navigation }) {
@@ -23,7 +23,6 @@ export default function Profile({ navigation }) {
       if (response.status === 200) {
         await Keychain.resetInternetCredentials('access_token');
         await Keychain.resetInternetCredentials('refresh_token');
-        alert('Logout successful!');
         navigation.reset({
           index: 0,
           routes: [{ name: 'GetStarted' }],
@@ -38,9 +37,8 @@ export default function Profile({ navigation }) {
   };
 
   return (
-    <View>
-      <Text>Profile</Text>
-      <Button title="Logout" onPress={handleLogout} />
+    <View style={{alignItems: 'center'}}>
+      <Button title="Logout" onPress={handleLogout}/>
     </View>
   );
 }

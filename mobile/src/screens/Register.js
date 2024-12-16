@@ -43,6 +43,7 @@ export default function Register({ navigation }) {
        <View style={style.formContainer}>
         <FontAwesomeIcon icon={faUser} style={style.icon} />
         <TextInput
+          placeholderTextColor={colors.navy}
           placeholder="First Name"
           value={firstName}
           onChangeText={setFirstName}
@@ -53,6 +54,7 @@ export default function Register({ navigation }) {
         <View style={style.formContainer}>
         <FontAwesomeIcon icon={faUser} style={style.icon} />
           <TextInput
+            placeholderTextColor={colors.navy}
             placeholder="Last Name"
             value={lastName}
             onChangeText={setLastName}
@@ -63,6 +65,7 @@ export default function Register({ navigation }) {
         <View style={style.formContainer}>
         <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
           <TextInput
+            placeholderTextColor={colors.navy}
             placeholder="Email"
             value={email}
             onChangeText={setEmail}
@@ -73,6 +76,7 @@ export default function Register({ navigation }) {
         <View style={style.formContainer}>
         <FontAwesomeIcon icon={faLock} style={style.icon} />  
           <TextInput
+            placeholderTextColor={colors.navy}
             placeholder="Password"
             secureTextEntry
             value={password}

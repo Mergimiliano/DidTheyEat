@@ -61,6 +61,7 @@ export default function Login({ navigation }) {
     <View style={style.formContainer}>
     <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
       <TextInput
+        placeholderTextColor={colors.navy}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -71,6 +72,7 @@ export default function Login({ navigation }) {
     <View style={style.formContainer}>
       <FontAwesomeIcon icon={faLock} style={style.icon} />
       <TextInput
+        placeholderTextColor={colors.navy}
         placeholder="Password"
         secureTextEntry
         value={password}

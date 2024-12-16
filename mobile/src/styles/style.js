@@ -57,6 +57,7 @@ const style = StyleSheet.create({
   },
   link: {
     color: colors.peach,
+    fontSize: 14,
   },
   createButton: {
     marginTop: 20,
