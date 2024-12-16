@@ -5,7 +5,7 @@ import { faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { cardStyle } from '../styles/cardStyle';
 import { colors } from '../styles/style';
 
-export default function UserCard({ user, handleRemoveUser }) {
+export default function UserCard({ user, onRemove }) {
   return (
     <View style={cardStyle.card}>
       <View style={cardStyle.iconContainer}>
@@ -38,7 +38,7 @@ export default function UserCard({ user, handleRemoveUser }) {
       </View>
 
       <View>
-        <TouchableOpacity onPress={() => handleRemoveUser(user)} style={{marginBottom: 40}}>
+        <TouchableOpacity onPress={() => onRemove(user.email)} style={{marginBottom: 40}}>
           <FontAwesomeIcon icon={faXmark} size={60} color={colors.offWhite} />
         </TouchableOpacity>
       </View>

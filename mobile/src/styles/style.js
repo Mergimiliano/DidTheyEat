@@ -140,6 +140,64 @@ const style = StyleSheet.create({
   bottomSheet:{
     backgroundColor: colors.yellow,
   },
+  inviteButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.green,
+    height: 50,
+    borderRadius: 8,
+    margin: 16,
+  },
+  inviteText: {
+    color: colors.offWhite,
+    fontWeight: 'bold',
+    marginLeft: 8,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: colors.offWhite,
+    padding: 20,
+    marginHorizontal: 20,
+    borderRadius: 8,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    color: colors.navy,
+  },
+  modalActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  cancelButton: {
+    backgroundColor: colors.gray,
+    padding: 12,
+    borderRadius: 8,
+    flex: 1,
+    marginRight: 8,
+  },
+  cancelText: {
+    color: colors.offWhite,
+    textAlign: 'center',
+  },
+  submitButton: {
+    backgroundColor: colors.green,
+    padding: 12,
+    borderRadius: 8,
+    flex: 1,
+    marginLeft: 8,
+  },
+  submitText: {
+    color: colors.offWhite,
+    textAlign: 'center',
+  },
 });
 
 export { style, colors };

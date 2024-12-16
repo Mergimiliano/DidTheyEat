@@ -1,0 +1,22 @@
+meta {
+  name: remove-user
+  type: http
+  seq: 18
+}
+
+post {
+  url: {{host}}/communities/12/remove/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "peppe@uuuu.com"
+  }
+  
+}

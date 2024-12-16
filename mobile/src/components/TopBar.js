@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { colors } from '../styles/style';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const TopBar = ({ tabs, activeTab, onTabPress }) => {
   return (
@@ -24,6 +25,7 @@ export default TopBar;
 
 const styles = StyleSheet.create({
   topBar: {
+    height: hp('8%'),
     flexDirection: 'row', // Align tabs horizontally
     justifyContent: 'space-around', // Even spacing between tabs
     backgroundColor: colors.yellow, // Background color of the top bar
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.navy, // Navy color for the bottom border
   },
   tabText: {
-    fontSize: 16, // Base font size
+    fontSize: 24, // Base font size
     color: 'gray', // Default color for inactive tabs
   },
   activeTabText: {

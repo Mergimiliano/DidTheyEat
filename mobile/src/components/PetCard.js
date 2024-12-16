@@ -15,6 +15,19 @@ const petIcon = {
   }
 
 export default function PetCard({ pet, onUpdate, onDelete, onPress }) {
+
+  const formatDate = (dateString) => {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+  };
+
   return (
     <TouchableOpacity style={cardStyle.card} onPress={onPress}>
       <View style={cardStyle.iconContainer}>
@@ -27,17 +40,22 @@ export default function PetCard({ pet, onUpdate, onDelete, onPress }) {
 
       <View style={cardStyle.contentContainer}>
         <Text
-          style={[cardStyle.title, { textAlign: 'left' }]}
-          numberOfLines={1}
-          ellipsizeMode="tail"
+          style={{ fontSize: 40,
+            fontWeight: 'bold',
+            color: colors.navy,
+            textAlign: 'center',
+          marginTop: -13}}
         >
           {pet.name}
         </Text>
         <Text style={cardStyle.content}>
-          Fed at: {pet.fed_at || ''}
+          Fed: {formatDate(pet.fed_at)}
         </Text>
         <Text style={cardStyle.content}>
-          Fed by: {pet.fed_by || 'None'}
+          By: {pet.fed_by || 'None'}
+        </Text>
+        <Text style={cardStyle.content}>
+          Feed it every {pet.feed_every} h
         </Text>
       </View>
 

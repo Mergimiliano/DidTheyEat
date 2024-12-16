@@ -7,9 +7,10 @@ import {
   FlatList,
   Alert,
   ActivityIndicator,
+  Modal
 } from 'react-native';
 import { colors } from '../styles/style';
-import { createPet, updatePet, deletePet } from '../services/petService';
+import { createPet, updatePet, deletePet, feedPet } from '../services/petService';
 import { faCat, faCrow, faDog, faDragon, faFish, faWorm, faPlus, faSearch, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { style } from '../styles/style';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -19,7 +20,7 @@ import BottomSheet from '@devvie/bottom-sheet';
 import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Picker } from '@react-native-picker/picker';
 import Button from '../components/Button';
-import { getCommunity } from '../services/communityService';
+import { getCommunity, inviteUser, removeUser } from '../services/communityService';
 import UserCard from '../components/UserCard';
 import { cardStyle } from '../styles/cardStyle';
 
@@ -58,6 +59,8 @@ export default function CommunityDetails({ route }) {
   const [petName, setPetName] = useState('');
   const [petType, setPetType] = useState('other');
   const [petFeedEvery, setPetFeedEvery] = useState('8');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [email, setEmail] = useState('');
 
   useEffect(() => {
     fetchCommunityDetails();
@@ -79,7 +82,6 @@ export default function CommunityDetails({ route }) {
 
   const handleTabPress = (tab) => {
     setActiveTab(tab);
-    console.log(`Switched to: ${tab}`);
     setSearch('');
   };
 
@@ -143,7 +145,56 @@ export default function CommunityDetails({ route }) {
   };
 
   const handleRemoveUser = (email) => {
-    console.log('test');
+    Alert.alert(
+      'Confirm Remove',
+      `Are you sure you want to remove ${email}?`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: () => {
+            removeUser(communityId, email)
+              .then(() => {
+                fetchCommunityDetails();
+              })
+              .catch((err) => {
+                console.error('Error removing user:', err);
+                Alert.alert('Error', 'Failed to remove user');
+              });
+          },
+        },
+      ]
+    );
+  };
+
+  const handleInviteUser = (email) => {
+    if (!email.trim()) {
+      Alert.alert('Error', 'Please enter a valid email address');
+      return;
+    }
+
+    inviteUser(communityId, email)
+      .then(() => {
+        fetchCommunityDetails();
+        setIsModalVisible(false);
+        setEmail('');
+      })
+      .catch((err) => {
+        console.error('Error inviting user:', err);
+        Alert.alert('Error', 'Failed to invite user');
+      });
+  };
+
+  const handleFeedPet = (petId) => {
+    feedPet(petId)
+    .then(() => {
+      fetchCommunityDetails();
+    })
+    .catch((err) => {
+      console.error('Error feeding the pet:', err);
+      Alert.alert('Error', 'Failed to feed the pet');
+    });
   };
 
   const filteredPets = community?.pets?.filter((pet) =>
@@ -180,6 +231,7 @@ export default function CommunityDetails({ route }) {
     return (
       <PetCard
         pet={item}
+        onPress={() => handleFeedPet(item.id)}
         onUpdate={handleOpenEditBottomSheet}
         onDelete={handleDelete}
       />
@@ -190,10 +242,7 @@ export default function CommunityDetails({ route }) {
     if (item.id === 'create') {
       return (
         <AddUserCard
-          onPress={() => {
-            setMode('invite');
-            bottomSheetRef.current?.open();
-          }}
+        onPress={() => setIsModalVisible(true)}
         />
       );
     }
@@ -309,6 +358,43 @@ export default function CommunityDetails({ route }) {
           />
         </View>
       </BottomSheet>
+
+      <Modal
+        transparent
+        animationType="slide"
+        visible={isModalVisible}
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <View style={style.modalContainer}>
+          <View style={style.modalContent}>
+            <Text style={style.modalTitle}>Invite User</Text>
+            <TextInput
+              placeholder="Enter email"
+              placeholderTextColor={colors.gray}
+              style={style.textInput}
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+            <View style={style.modalActions}>
+              <TouchableOpacity
+                style={style.cancelButton}
+                onPress={() => setIsModalVisible(false)}
+              >
+                <Text style={style.cancelText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={style.submitButton}
+                onPress={() => handleInviteUser(email)}
+                >
+                <Text style={style.submitText}>Invite</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
     </View>
   );
 }

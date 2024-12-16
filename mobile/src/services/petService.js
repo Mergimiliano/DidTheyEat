@@ -23,3 +23,9 @@ export const deletePet = (id) => {
     .then(response => response.data)
     .catch(err => { throw err; });
 };
+
+export const feedPet = (id) => {
+  return axiosInstance.patch(`/pets/${id}/feed/`)
+  .then(response => response.data)
+  .catch(err => { throw err; });
+}

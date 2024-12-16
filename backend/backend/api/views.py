@@ -135,11 +135,16 @@ class FeedPet(generics.UpdateAPIView):
     
     def patch(self, request, *args, **kwargs):
         pet = self.get_object()
+
         if pet.fed:
-            return Response({"detail": "This pet has already been fed."}, status=status.HTTP_400_BAD_REQUEST)
-        pet.fed = True
-        pet.fed_at = timezone.now()
-        pet.fed_by = f"{request.user.first_name} {request.user.last_name}"
+            pet.fed = False
+            pet.fed_at = None
+            pet.fed_by = None
+        else:
+            pet.fed = True
+            pet.fed_at = timezone.now()
+            pet.fed_by = f"{request.user.first_name} {request.user.last_name}"
+
         pet.save()
         return Response(PetSerializer(pet).data, status=status.HTTP_200_OK)
 
@@ -163,8 +168,21 @@ class CommunityDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         community = get_object_or_404(Community, id=self.kwargs['pk'])
+
         if self.request.user not in community.users.all():
             self.permission_denied(self.request, message="You do not have access to this community.")
+        
+        pets = community.pets.all()
+        current_time = timezone.now()
+        
+        for pet in pets:
+            if pet.fed_at and pet.feed_every:
+                time_since_fed = (current_time - pet.fed_at).total_seconds() / 3600
+                if time_since_fed >= pet.feed_every:
+                    pet.fed_by = None
+                    pet.fed_at = None
+                    pet.save()
+        
         return community
 
 

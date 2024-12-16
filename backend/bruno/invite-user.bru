@@ -1,0 +1,22 @@
+meta {
+  name: invite-user
+  type: http
+  seq: 17
+}
+
+post {
+  url: {{host}}/communities/12/invite/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "email": "peppe@uuuu.com"
+  }
+  
+}

@@ -31,13 +31,13 @@ export const deleteCommunity = (id) => {
 };
 
 export const inviteUser = (id,email) => {
-  return axiosInstance.post(`/communities/${id}/invite`, email)
+  return axiosInstance.post(`/communities/${id}/invite/`, {email})
   .then(response => response.data)
   .catch(err => { throw err; });
 };
 
 export const removeUser = (id,email) => {
-  return axiosInstance.post(`/communities/${id}/remove`, email)
+  return axiosInstance.post(`/communities/${id}/remove/`, {email})
   .then(response => response.data)
   .catch(err => { throw err; });
 };

@@ -1,0 +1,20 @@
+meta {
+  name: pet-feed
+  type: http
+  seq: 19
+}
+
+patch {
+  url: {{host}}/pets/8/feed/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  
+  
+}
