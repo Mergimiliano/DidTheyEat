@@ -8,17 +8,17 @@ const slides = [
   {
     id: '1',
     title: 'Welcome to DidTheyEat!',
-    text: 'Feeding your pets has never been this easy'
+    text: 'Feeding your pets has never been this easy! With this practical app, you and your friends can collaborate to ensure your pets are fed in the simplest way possible.'
   },
   {
     id: '2',
-    title: 'Title 2',
-    text: 'Text test 2'
+    title: '4 Simple Steps',
+    text: 'Register, create your community, invite your friends, and finally feed your pets by tapping their icons.'
   },
   {
     id: '3',
-    title: 'Title 3',
-    text: 'Text test 3'
+    title: 'No More Confusion',
+    text: 'With DidTheyEat, everyone will know when and who fed which pet. No more calls or checking in with others—you’ll have all the information at your fingertips!'
   }
 ]
 

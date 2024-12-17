@@ -28,7 +28,7 @@ export default function Login({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(`${BASE_URL}/token/`, {
+      const response = await axios.post('http://10.0.2.2:8000/token/', {
         email,
         password,
       });

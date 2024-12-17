@@ -5,7 +5,7 @@ import {BASE_URL} from '@env';
 console.log(BASE_URL);
 
 const axiosInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: 'http://10.0.2.2:8000',
 });
 
   axiosInstance.interceptors.request.use(
