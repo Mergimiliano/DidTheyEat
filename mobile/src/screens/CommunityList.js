@@ -15,7 +15,7 @@ import { ActivityIndicator } from 'react-native';
 
 const CreateCommunityCard = ({ onPress }) => {
   return (
-    <TouchableOpacity style={cardStyle.cardCreate} onPress={onPress}>
+    <TouchableOpacity style={cardStyle.communityCardCreate} onPress={onPress}>
         <FontAwesomeIcon icon={faPlus} size={80} style={{color: colors.navy}} />
       <Text style={style.subtitle}>Create new</Text>
     </TouchableOpacity>

@@ -7,7 +7,7 @@ import { colors } from '../styles/style';
 
 export default function UserCard({ user, onRemove }) {
   return (
-    <View style={cardStyle.card}>
+    <View style={cardStyle.communityCard}>
       <View style={cardStyle.iconContainer}>
         <FontAwesomeIcon
           icon={faUser}
@@ -16,33 +16,47 @@ export default function UserCard({ user, onRemove }) {
         />
       </View>
 
-      <View style={cardStyle.contentContainer}>
-        <Text
-          style={{ textAlign: 'center',     fontSize: 40,
-            fontWeight: 'bold',
-            color: colors.navy }}
-          numberOfLines={1}
-          ellipsizeMode="tail"
+      <View style={cardStyle.centerContainer}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
+          }}
         >
-          {user.first_name}
-        </Text>
+          <Text
+            style={{
+              fontSize: 30,
+              fontWeight: 'bold',
+              color: colors.navy,
+              flex: 1,
+              marginRight: 10,
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {user.first_name}
+          </Text>
+
+          <TouchableOpacity onPress={() => onRemove(user.email)}>
+            <FontAwesomeIcon icon={faXmark} size={36} color={colors.navy} />
+          </TouchableOpacity>
+        </View>
+
         <Text
-          style={{ textAlign: 'center',     fontSize: 40,
+          style={{
+            fontSize: 30,
             fontWeight: 'bold',
-            color: colors.navy }}
+            color: colors.navy,
+            marginTop: 5,
+          }}
           numberOfLines={1}
           ellipsizeMode="tail"
         >
           {user.last_name}
         </Text>
       </View>
-
-      <View>
-        <TouchableOpacity onPress={() => onRemove(user.email)} style={{marginBottom: 40}}>
-          <FontAwesomeIcon icon={faXmark} size={60} color={colors.offWhite} />
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
-

@@ -1,23 +1,45 @@
 import { StyleSheet } from "react-native"
 import { colors } from "./style";
+import CommunityCard from "../components/CommunityCard";
 
 const cardStyle = StyleSheet.create({
-  card: {
-    height: 150,
+  petCard: {
+    height: 195,
     flexDirection: 'row',
     padding: 15,
     margin: 10,
-    borderWidth: 1.5,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: colors.navy,
+  },
+  petCardCreate: {
+    height: 170,
+    flexDirection: 'column',
+    padding: 15,
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: colors.navy,
+    backgroundColor: colors.yellow,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  communityCard: {
+    height: 155,
+    flexDirection: 'row',
+    padding: 15,
+    margin: 10,
+    borderWidth: 2,
     borderRadius: 10,
     borderColor: colors.navy,
     backgroundColor: colors.yellow,
   },
-  cardCreate: {
-    height: 150,
+  communityCardCreate: {
+    height: 155,
     flexDirection: 'column',
     padding: 15,
     margin: 10,
-    borderWidth: 1.5,
+    borderWidth: 2,
     borderRadius: 10,
     borderColor: colors.navy,
     backgroundColor: colors.yellow,
@@ -25,6 +47,8 @@ const cardStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   iconContainer: {
+    height: 120,
+    width: 120,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.offWhite,
@@ -32,26 +56,88 @@ const cardStyle = StyleSheet.create({
     borderColor: colors.navy,
     borderRadius: 10,
     padding: 15,
+    marginRight: 10,
   },
-  contentContainer: {
+  centerContainer: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    margin: 20,
+    padding: 15,
+    backgroundColor: colors.offWhite,
+    borderWidth: 2,
+    borderColor: colors.navy,
+    borderRadius: 10,
   },
   title: {
     fontSize: 40,
     fontWeight: 'bold',
     color: colors.navy,
     textAlign: 'center',
-    marginBottom:25,
-    marginTop: -15,
   },
-  content: {
-    fontSize: 16,
+  subContent: {
+    fontSize: 18,
     color: colors.navy,
     fontWeight: 600,
+    textAlign: 'center',
+  },
+  content: {
+    fontSize: 18,
+    color: colors.navy,
+    fontWeight: 600,
+    alignContent: 'space-between',
+    width: '100%',
+  },
+  subContentContainer: {
+    height: 31,
+    width: 120,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.offWhite,
+    borderWidth: 2,
+    borderColor: colors.navy,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 10,
+  },
+  options:{
+    alignItems: 'flex-end',
+    marginBottom: 12,
+    marginRight: -15,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
+  menuContainer: {
+    position: 'absolute',
+    top: '40%',
+    left: '25%',
+    width: 200,
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.offWhite,
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    elevation: 5,
+  },
+  menuItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  menuText: {
+    fontSize: 16,
+    color: colors.navy,
+  },
+  deleteText: {
+    color: colors.red,
   },
 });
 

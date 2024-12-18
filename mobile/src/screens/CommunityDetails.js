@@ -7,7 +7,9 @@ import {
   FlatList,
   Alert,
   ActivityIndicator,
-  Modal
+  Modal,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import { colors } from '../styles/style';
 import { createPet, updatePet, deletePet, feedPet } from '../services/petService';
@@ -34,14 +36,14 @@ const petIcon = {
 };
 
 const CreatePetCard = ({ onPress }) => (
-  <TouchableOpacity onPress={onPress} style={cardStyle.cardCreate}>
+  <TouchableOpacity onPress={onPress} style={cardStyle.petCardCreate}>
     <FontAwesomeIcon icon={faPlus} size={80} style={{ color: colors.navy }} />
     <Text style={style.subtitle}>Create new</Text>
   </TouchableOpacity>
 );
 
 const AddUserCard = ({ onPress }) => (
-  <TouchableOpacity onPress={onPress} style={cardStyle.cardCreate}>
+  <TouchableOpacity onPress={onPress} style={cardStyle.communityCardCreate}>
     <FontAwesomeIcon icon={faUserPlus} size={80} style={{ color: colors.navy, marginLeft:24}} />
     <Text style={style.subtitle}>Invite</Text>
   </TouchableOpacity>
@@ -365,6 +367,12 @@ export default function CommunityDetails({ route }) {
         visible={isModalVisible}
         onRequestClose={() => setIsModalVisible(false)}
       >
+        <TouchableWithoutFeedback
+          onPress={() => {
+            setIsModalVisible(false);
+            Keyboard.dismiss();
+          }}
+        >
         <View style={style.modalContainer}>
           <View style={style.modalContent}>
             <Text style={style.modalTitle}>Invite User</Text>
@@ -393,8 +401,8 @@ export default function CommunityDetails({ route }) {
             </View>
           </View>
         </View>
+        </TouchableWithoutFeedback>
       </Modal>
-
     </View>
   );
 }

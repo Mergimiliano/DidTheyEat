@@ -187,7 +187,7 @@ const style = StyleSheet.create({
     marginRight: 8,
   },
   cancelText: {
-    color: colors.offWhite,
+    color: colors.green,
     textAlign: 'center',
   },
   submitButton: {
