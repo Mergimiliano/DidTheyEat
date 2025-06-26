@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -9,22 +9,36 @@ import {
   ActivityIndicator,
   Modal,
   TouchableWithoutFeedback,
-  Keyboard
+  Keyboard,
 } from 'react-native';
-import { colors } from '../styles/style';
-import { createPet, updatePet, deletePet, feedPet } from '../services/petService';
-import { faCat, faCrow, faDog, faDragon, faFish, faWorm, faPlus, faSearch, faUserPlus } from '@fortawesome/free-solid-svg-icons';
-import { style } from '../styles/style';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {colors} from '../styles/style';
+import {createPet, updatePet, deletePet, feedPet} from '../services/petService';
+import {
+  faCat,
+  faCrow,
+  faDog,
+  faDragon,
+  faFish,
+  faWorm,
+  faPlus,
+  faSearch,
+  faUserPlus,
+} from '@fortawesome/free-solid-svg-icons';
+import {style} from '../styles/style';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import PetCard from '../components/PetCard';
 import TopBar from '../components/TopBar';
 import BottomSheet from '@devvie/bottom-sheet';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Picker } from '@react-native-picker/picker';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import {Picker} from '@react-native-picker/picker';
 import Button from '../components/Button';
-import { getCommunity, inviteUser, removeUser } from '../services/communityService';
+import {
+  getCommunity,
+  inviteUser,
+  removeUser,
+} from '../services/communityService';
 import UserCard from '../components/UserCard';
-import { cardStyle } from '../styles/cardStyle';
+import {cardStyle} from '../styles/cardStyle';
 
 const petIcon = {
   dog: faDog,
@@ -35,22 +49,26 @@ const petIcon = {
   other: faDragon,
 };
 
-const CreatePetCard = ({ onPress }) => (
+const CreatePetCard = ({onPress}) => (
   <TouchableOpacity onPress={onPress} style={cardStyle.petCardCreate}>
-    <FontAwesomeIcon icon={faPlus} size={80} style={{ color: colors.navy }} />
+    <FontAwesomeIcon icon={faPlus} size={80} style={{color: colors.navy}} />
     <Text style={style.subtitle}>Create new</Text>
   </TouchableOpacity>
 );
 
-const AddUserCard = ({ onPress }) => (
+const AddUserCard = ({onPress}) => (
   <TouchableOpacity onPress={onPress} style={cardStyle.communityCardCreate}>
-    <FontAwesomeIcon icon={faUserPlus} size={80} style={{ color: colors.navy, marginLeft:24}} />
+    <FontAwesomeIcon
+      icon={faUserPlus}
+      size={80}
+      style={{color: colors.navy, marginLeft: 24}}
+    />
     <Text style={style.subtitle}>Invite</Text>
   </TouchableOpacity>
 );
 
-export default function CommunityDetails({ route }) {
-  const { communityId } = route.params;
+export default function CommunityDetails({route}) {
+  const {communityId} = route.params;
   const [community, setCommunity] = useState(null);
   const [activeTab, setActiveTab] = useState('Pets');
   const [search, setSearch] = useState('');
@@ -71,23 +89,23 @@ export default function CommunityDetails({ route }) {
   const fetchCommunityDetails = () => {
     setRefreshing(true);
     getCommunity(communityId)
-      .then((data) => {
+      .then(data => {
         setCommunity(data);
         setRefreshing(false);
       })
-      .catch((err) => {
+      .catch(err => {
         console.error('Error fetching community details:', err);
         Alert.alert('Error', 'Failed to load community details');
         setRefreshing(false);
       });
   };
 
-  const handleTabPress = (tab) => {
+  const handleTabPress = tab => {
     setActiveTab(tab);
     setSearch('');
   };
 
-  const handleOpenEditBottomSheet = (pet) => {
+  const handleOpenEditBottomSheet = pet => {
     setMode('update');
     setCurrentPet(pet);
     setPetName(pet.name);
@@ -109,7 +127,7 @@ export default function CommunityDetails({ route }) {
           fetchCommunityDetails();
           bottomSheetRef.current?.close();
         })
-        .catch((err) => {
+        .catch(err => {
           console.error('Error creating pet:', err);
           Alert.alert('Error', 'Failed to create pet');
         });
@@ -119,16 +137,16 @@ export default function CommunityDetails({ route }) {
           fetchCommunityDetails();
           bottomSheetRef.current?.close();
         })
-        .catch((err) => {
+        .catch(err => {
           console.error('Error updating pet:', err);
           Alert.alert('Error', 'Failed to update pet');
         });
     }
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = id => {
     Alert.alert('Confirm Delete', 'Are you sure you want to delete this pet?', [
-      { text: 'Cancel', style: 'cancel' },
+      {text: 'Cancel', style: 'cancel'},
       {
         text: 'Delete',
         style: 'destructive',
@@ -137,7 +155,7 @@ export default function CommunityDetails({ route }) {
             .then(() => {
               fetchCommunityDetails();
             })
-            .catch((err) => {
+            .catch(err => {
               console.error('Error deleting pet:', err);
               Alert.alert('Error', 'Failed to delete the pet');
             });
@@ -146,31 +164,27 @@ export default function CommunityDetails({ route }) {
     ]);
   };
 
-  const handleRemoveUser = (email) => {
-    Alert.alert(
-      'Confirm Remove',
-      `Are you sure you want to remove ${email}?`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Remove',
-          style: 'destructive',
-          onPress: () => {
-            removeUser(communityId, email)
-              .then(() => {
-                fetchCommunityDetails();
-              })
-              .catch((err) => {
-                console.error('Error removing user:', err);
-                Alert.alert('Error', 'Failed to remove user');
-              });
-          },
+  const handleRemoveUser = email => {
+    Alert.alert('Confirm Remove', `Are you sure you want to remove ${email}?`, [
+      {text: 'Cancel', style: 'cancel'},
+      {
+        text: 'Remove',
+        style: 'destructive',
+        onPress: () => {
+          removeUser(communityId, email)
+            .then(() => {
+              fetchCommunityDetails();
+            })
+            .catch(err => {
+              console.error('Error removing user:', err);
+              Alert.alert('Error', 'Failed to remove user');
+            });
         },
-      ]
-    );
+      },
+    ]);
   };
 
-  const handleInviteUser = (email) => {
+  const handleInviteUser = email => {
     if (!email.trim()) {
       Alert.alert('Error', 'Please enter a valid email address');
       return;
@@ -182,42 +196,39 @@ export default function CommunityDetails({ route }) {
         setIsModalVisible(false);
         setEmail('');
       })
-      .catch((err) => {
+      .catch(err => {
         console.error('Error inviting user:', err);
         Alert.alert('Error', 'Failed to invite user');
       });
   };
 
-  const handleFeedPet = (petId) => {
+  const handleFeedPet = petId => {
     feedPet(petId)
-    .then(() => {
-      fetchCommunityDetails();
-    })
-    .catch((err) => {
-      console.error('Error feeding the pet:', err);
-      Alert.alert('Error', 'Failed to feed the pet');
-    });
+      .then(() => {
+        fetchCommunityDetails();
+      })
+      .catch(err => {
+        console.error('Error feeding the pet:', err);
+        Alert.alert('Error', 'Failed to feed the pet');
+      });
   };
 
-  const filteredPets = community?.pets?.filter((pet) =>
-    pet.name?.toLowerCase().includes(search.toLowerCase()) || false
-  ) || [];
+  const filteredPets =
+    community?.pets?.filter(
+      pet => pet.name?.toLowerCase().includes(search.toLowerCase()) || false,
+    ) || [];
 
-  const filteredUsers = community?.users?.filter((user) =>
-    user.first_name?.toLowerCase().includes(search.toLowerCase()) || false
-  ) || [];
+  const filteredUsers =
+    community?.users?.filter(
+      user =>
+        user.first_name?.toLowerCase().includes(search.toLowerCase()) || false,
+    ) || [];
 
-  const petsData = [
-    ...filteredPets,
-    { id: 'create' },
-  ];
+  const petsData = [...filteredPets, {id: 'create'}];
 
-  const usersData = [
-    ...filteredUsers,
-    { id: 'create' },
-  ];
+  const usersData = [...filteredUsers, {id: 'create'}];
 
-  const renderPet =  ({ item }) => {
+  const renderPet = ({item}) => {
     if (item.id === 'create') {
       return (
         <CreatePetCard
@@ -240,25 +251,15 @@ export default function CommunityDetails({ route }) {
     );
   };
 
-  const renderUser =  ({ item }) => {
+  const renderUser = ({item}) => {
     if (item.id === 'create') {
-      return (
-        <AddUserCard
-        onPress={() => setIsModalVisible(true)}
-        />
-      );
+      return <AddUserCard onPress={() => setIsModalVisible(true)} />;
     }
-    return (
-      <UserCard
-        user={item}
-        onRemove={handleRemoveUser}
-      />
-    );
+    return <UserCard user={item} onRemove={handleRemoveUser} />;
   };
 
-
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <TopBar
         tabs={['Pets', 'Users']}
         activeTab={activeTab}
@@ -282,7 +283,7 @@ export default function CommunityDetails({ route }) {
         <>
           <FlatList
             data={petsData}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={item => item.id.toString()}
             renderItem={renderPet}
             refreshing={refreshing}
             onRefresh={fetchCommunityDetails}
@@ -291,7 +292,7 @@ export default function CommunityDetails({ route }) {
       ) : (
         <FlatList
           data={usersData}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
           renderItem={renderUser}
           refreshing={refreshing}
           onRefresh={fetchCommunityDetails}
@@ -299,12 +300,12 @@ export default function CommunityDetails({ route }) {
       )}
 
       <BottomSheet
-      ref={bottomSheetRef}
-      height={hp('63%')}
-      closeOnDragDown
-      closeOnPressMask
-      style={style.bottomSheet}>
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+        ref={bottomSheetRef}
+        height={hp('63%')}
+        closeOnDragDown
+        closeOnPressMask
+        style={style.bottomSheet}>
+        <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Text style={style.subtitle}>Pet Name:</Text>
           <View style={style.formContainer}>
             <TextInput
@@ -317,15 +318,14 @@ export default function CommunityDetails({ route }) {
           <View style={style.formContainer}>
             <Picker
               selectedValue={petType}
-              onValueChange={(itemValue) => setPetType(itemValue)}
+              onValueChange={itemValue => setPetType(itemValue)}
               style={{
                 flex: 1,
                 color: colors.navy,
                 width: '100%',
                 height: '100%',
               }}
-              dropdownIconColor={colors.navy}
-            >
+              dropdownIconColor={colors.navy}>
               <Picker.Item label="Other" value="other" />
               <Picker.Item label="Dog" value="dog" />
               <Picker.Item label="Cat" value="cat" />
@@ -341,16 +341,16 @@ export default function CommunityDetails({ route }) {
               value={petFeedEvery}
               onChangeText={setPetFeedEvery}
               style={style.formText}
-              keyboardType='numeric'
+              keyboardType="numeric"
             />
           </View>
 
-          <View style={[cardStyle.iconContainer, { marginBottom: 10 }]}>
-          <FontAwesomeIcon
-            icon={petIcon[petType.toLowerCase()] || faDragon}
-            size={80}
-            style={{ color: colors.navy }}
-          />
+          <View style={[cardStyle.iconContainer, {marginBottom: 10}]}>
+            <FontAwesomeIcon
+              icon={petIcon[petType.toLowerCase()] || faDragon}
+              size={80}
+              style={{color: colors.navy}}
+            />
           </View>
           <Button
             title={mode === 'create' ? 'Create' : 'Update'}
@@ -365,42 +365,38 @@ export default function CommunityDetails({ route }) {
         transparent
         animationType="slide"
         visible={isModalVisible}
-        onRequestClose={() => setIsModalVisible(false)}
-      >
+        onRequestClose={() => setIsModalVisible(false)}>
         <TouchableWithoutFeedback
           onPress={() => {
             setIsModalVisible(false);
             Keyboard.dismiss();
-          }}
-        >
-        <View style={style.modalContainer}>
-          <View style={style.modalContent}>
-            <Text style={style.modalTitle}>Invite User</Text>
-            <TextInput
-              placeholder="Enter email"
-              placeholderTextColor={colors.gray}
-              style={style.textInput}
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-            <View style={style.modalActions}>
-              <TouchableOpacity
-                style={style.cancelButton}
-                onPress={() => setIsModalVisible(false)}
-              >
-                <Text style={style.cancelText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={style.submitButton}
-                onPress={() => handleInviteUser(email)}
-                >
-                <Text style={style.submitText}>Invite</Text>
-              </TouchableOpacity>
+          }}>
+          <View style={style.modalContainer}>
+            <View style={style.modalContent}>
+              <Text style={style.modalTitle}>Invite User</Text>
+              <TextInput
+                placeholder="Enter email"
+                placeholderTextColor={colors.gray}
+                style={style.textInput}
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+              <View style={style.modalActions}>
+                <TouchableOpacity
+                  style={style.cancelButton}
+                  onPress={() => setIsModalVisible(false)}>
+                  <Text style={style.cancelText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={style.submitButton}
+                  onPress={() => handleInviteUser(email)}>
+                  <Text style={style.submitText}>Invite</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
         </TouchableWithoutFeedback>
       </Modal>
     </View>

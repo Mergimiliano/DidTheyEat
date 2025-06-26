@@ -1,24 +1,40 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {BASE_URL} from '@env';
-import { Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView, View, Alert } from 'react-native';
-import { style } from '../styles/style';
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+  SafeAreaView,
+  View,
+  Alert,
+} from 'react-native';
+import {style} from '../styles/style';
 import * as Keychain from 'react-native-keychain';
 import axios from 'axios';
 import Button from '../components/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
-import { colors } from '../styles/style';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
+import {colors} from '../styles/style';
 
-export default function Login({ navigation }) {
+export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const saveTokens = async (accessToken, refreshToken) => {
     try {
-      await Keychain.setInternetCredentials('access_token', 'access', accessToken);
+      await Keychain.setInternetCredentials(
+        'access_token',
+        'access',
+        accessToken,
+      );
       console.log('Access token saved successfully.');
 
-      await Keychain.setInternetCredentials('refresh_token', 'refresh', refreshToken);
+      await Keychain.setInternetCredentials(
+        'refresh_token',
+        'refresh',
+        refreshToken,
+      );
       console.log('Refresh token saved successfully.');
     } catch (error) {
       console.error('Error saving tokens:', error);
@@ -28,19 +44,19 @@ export default function Login({ navigation }) {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://10.0.2.2:8000/token/', {
+      const response = await axios.post('http://192.168.1.79:8000/token/', {
         email,
         password,
       });
 
       if (response.status === 200) {
-        const { access, refresh } = response.data;
+        const {access, refresh} = response.data;
 
         await saveTokens(access, refresh);
 
         navigation.reset({
           index: 0,
-          routes: [{ name: 'AppTabs' }],
+          routes: [{name: 'AppTabs'}],
         });
       } else {
         alert('Login failed. Please check your credentials.');
@@ -53,39 +69,39 @@ export default function Login({ navigation }) {
 
   return (
     <ImageBackground
-  source={require('../assets/background-form.png')}
-  resizeMode="cover"
-  style={[style.background, { flex: 1 }]}>
-  <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      source={require('../assets/background-form.png')}
+      resizeMode="cover"
+      style={[style.background, {flex: 1}]}>
+      <SafeAreaView
+        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={style.formContainer}>
+          <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
+          <TextInput
+            placeholderTextColor={colors.navy}
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            style={style.formText}
+          />
+        </View>
 
-    <View style={style.formContainer}>
-    <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
-      <TextInput
-        placeholderTextColor={colors.navy}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        style={style.formText}
-      />
-    </View>
+        <View style={style.formContainer}>
+          <FontAwesomeIcon icon={faLock} style={style.icon} />
+          <TextInput
+            placeholderTextColor={colors.navy}
+            placeholder="Password"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            style={style.formText}
+          />
+        </View>
 
-    <View style={style.formContainer}>
-      <FontAwesomeIcon icon={faLock} style={style.icon} />
-      <TextInput
-        placeholderTextColor={colors.navy}
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-        style={style.formText}
-      />
-    </View>
-
-    <Button title="Login" onPress={handleLogin} color={colors.yellow} />
-    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-      <Text style={style.link}>Don't have an account? Register</Text>
-    </TouchableOpacity>
-  </SafeAreaView>
-</ImageBackground>
+        <Button title="Login" onPress={handleLogin} color={colors.yellow} />
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <Text style={style.link}>Don't have an account? Register</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }

@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {BASE_URL} from '@env';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+  SafeAreaView,
+} from 'react-native';
 import Button from '../components/Button';
-import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
-import { style } from '../styles/style';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { colors } from '../styles/style';
+import {faUser, faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';
+import {style} from '../styles/style';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {colors} from '../styles/style';
 
-export default function Register({ navigation }) {
+export default function Register({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -15,10 +22,15 @@ export default function Register({ navigation }) {
 
   const handleRegister = async () => {
     try {
-      const response = await fetch(`http://10.0.2.2:8000/user/register/`, {
+      const response = await fetch(`http://192.168.1.79:8000/user/register/`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, first_name: firstName, last_name: lastName }),
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          email,
+          password,
+          first_name: firstName,
+          last_name: lastName,
+        }),
       });
 
       const data = await response.json();
@@ -37,22 +49,22 @@ export default function Register({ navigation }) {
     <ImageBackground
       source={require('../assets/background-form.png')}
       resizeMode="cover"
-      style={[style.background, { flex: 1 }]}>
-      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-
-       <View style={style.formContainer}>
-        <FontAwesomeIcon icon={faUser} style={style.icon} />
-        <TextInput
-          placeholderTextColor={colors.navy}
-          placeholder="First Name"
-          value={firstName}
-          onChangeText={setFirstName}
-          style={style.formText}
-        />
+      style={[style.background, {flex: 1}]}>
+      <SafeAreaView
+        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={style.formContainer}>
+          <FontAwesomeIcon icon={faUser} style={style.icon} />
+          <TextInput
+            placeholderTextColor={colors.navy}
+            placeholder="First Name"
+            value={firstName}
+            onChangeText={setFirstName}
+            style={style.formText}
+          />
         </View>
 
         <View style={style.formContainer}>
-        <FontAwesomeIcon icon={faUser} style={style.icon} />
+          <FontAwesomeIcon icon={faUser} style={style.icon} />
           <TextInput
             placeholderTextColor={colors.navy}
             placeholder="Last Name"
@@ -60,10 +72,10 @@ export default function Register({ navigation }) {
             onChangeText={setLastName}
             style={style.formText}
           />
-          </View>
+        </View>
 
         <View style={style.formContainer}>
-        <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
+          <FontAwesomeIcon icon={faEnvelope} style={style.icon} />
           <TextInput
             placeholderTextColor={colors.navy}
             placeholder="Email"
@@ -74,7 +86,7 @@ export default function Register({ navigation }) {
         </View>
 
         <View style={style.formContainer}>
-        <FontAwesomeIcon icon={faLock} style={style.icon} />  
+          <FontAwesomeIcon icon={faLock} style={style.icon} />
           <TextInput
             placeholderTextColor={colors.navy}
             placeholder="Password"
@@ -85,11 +97,15 @@ export default function Register({ navigation }) {
           />
         </View>
 
-      <Button title="Register" onPress={handleRegister} color={colors.yellow}/>
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={style.link}>Already have an account? Login</Text>
-      </TouchableOpacity>
+        <Button
+          title="Register"
+          onPress={handleRegister}
+          color={colors.yellow}
+        />
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={style.link}>Already have an account? Login</Text>
+        </TouchableOpacity>
       </SafeAreaView>
-  </ImageBackground>
+    </ImageBackground>
   );
 }

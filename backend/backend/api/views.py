@@ -29,7 +29,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     permission_classes = [AllowAny]
     
     def post(self, request, *args, **kwargs):
+        print(request)
         user = User.objects.filter(email=request.data.get('email')).first()
+        print(request.data.get('email'))
         if user and (user.deleted_at is None):
             return super().post(request, *args, **kwargs)
         else:
