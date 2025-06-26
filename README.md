@@ -8,13 +8,12 @@ At the moment, the app is missing its main app icon and several assets that need
 
 The backend is built with Django, ensuring a robust and scalable API to handle user data securely via async encryption. On the frontend, I used React Native CLI to develop the mobile app, prioritizing minimal library usage to keep the app lightweight and efficient. This approach allows for smooth performance on both Android and iOS platforms while ensuring the app stays fast and responsive.
 
-
 # Installation:
 
     #Back-end:
         Install Python
         Navigate to the backend where manage.py is located cd backend/backend
-        Create and activate a virtual environment ( ex: python -m venv .venv ) and activate it ( .venv\Scripts\activate )
+        Create and activate a virtual environment ( ex: python -m venv .venv ) and activate it ( source .venv\Scripts\activate )
         Install dependencies via requirements.txt ( pip install -r requirements.txt )
         copy .env.local and rename it .env following the instructions inside said file
         Run migrations and start the server ( python manage.py migrate & python manage.py runserver )
